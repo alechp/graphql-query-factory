@@ -1,5 +1,5 @@
 const test = require('ava');
-const Builder = require('../builder.js');
+const { builder } = require('../index.js');
 const log = console.log;
 //TODO: add sample query
 const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
@@ -57,9 +57,10 @@ const expectedQueries = `mutation addMarkup($markup:String!, $raw: String!) {
     raw
   }
 }`;
+  let queries = builder(sampleMutation, queryVariablesArray);
+  log(`queries: ${queries} \n expectedQueries: ${expectedQueries}`);
 
 test('(query<string>, variables<object>)', t => {
-  let queries = new Builder(sampleMutation, queryVariablesArray);
-  log(`\n\nQueries: ${JSON.stringify(queries)}\n\n Expected Queries: ${expectedQueries}`);
+  let queries = builder(sampleMutation, queryVariablesArray);
   t.is(queries, expectedQueries)
 });
