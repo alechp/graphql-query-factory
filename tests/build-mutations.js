@@ -2,6 +2,7 @@ const test = require('ava');
 const { builder } = require('../index.js');
 const log = console.log;
 //TODO: add sample query
+
 const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
     markup: $markup 
