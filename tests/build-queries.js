@@ -57,7 +57,7 @@ async function b(){
   return queries;
 }
 
-test('(query<string>, variables<object>)', async t => {
+test('queries build', async t => {
   // let queries = await builder(sampleMutation, queryVariablesArray);
   let queries = await b();
   t.is(queries, expectedQueries)
