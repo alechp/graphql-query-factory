@@ -1,11 +1,16 @@
 const chalk = require('chalk'); //https://www.npmjs.com/package/chalk
 const log = console.log;
 
+function builder(query, variables) {
+  let queries = new QueryBuilder(query, variables); 
+  return queries;
+}
 class QueryBuilder {
   constructor(queryTemplate, queryVariables) { 
     this.query = queryTemplate;
     this.vars = queryVariables;
-    this.buildQueries();
+    let queries = this.buildQueries();
+    return queries;
   }
   getQuery(){
     return this.query;
@@ -75,6 +80,5 @@ class QueryBuilder {
       log(`buildQuery error: ${error}`);
     }
   }
-
 }
-module.exports = QueryBuilder;
+module.exports = builder;
