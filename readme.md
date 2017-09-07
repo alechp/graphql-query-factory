@@ -1,26 +1,28 @@
 # GraphQL Query Batcher
 ## Status
-* [x] QueryBuilder
-* [ ] QueryBatcher
-* [x] Ava Tests
-* [ ] CI status bar
+[x] QueryBuilder
+[ ] QueryBatcher
+[x] Ava Tests
+[ ] CI status bar
 
 ## Getting Started
 #### Installation
 ```bash
-npm install graphql-query-batcher -S 
+npm install graphql-query-factory -S 
 ```
 
 #### Sample Use
+QueryBuilder
 ```js
-const batcher = require('graphql-query-batcher');
-async function execute(){
-  try { 
-    let queries = await batcher.build(query, arrayOfQueryVariableObjects);
-    let results = await batcher.execute({ concurrent: 4}); // this refers to the number of concurrent queries. Nilan from Graph.cool recommended 4 
-    return results;
-  } catch(error) { 
-    console.error(`Failed to execute() because: ${error});
-  }
-}
+const { builder } = require('graphql-query-factory');
+let qs = await builder(queryString, arrayOfVariableObjects);
+//Queries is a promise, but for the sake of testing going to explicity typecast as string
+let queries = String(qs); 
+log(`Queries: ${queries});
+```
+> Better example will be posted later. For now take a look at the tests.
+
+QueryBatcher 
+```js
+Not available yet
 ```
