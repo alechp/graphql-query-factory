@@ -1,4 +1,9 @@
 # GraphQL Query Batcher
+## Status
+* [x] QueryBuilder
+* [ ] QueryBatcher
+* [x] Ava Tests
+* [ ] CI status bar
 
 ## Getting Started
 #### Installation
