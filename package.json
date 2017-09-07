@@ -14,7 +14,10 @@
     "graphql queries",
     "graphql query batcher",
     "graphql query factory",
-    "query factory"
+    "query factory",
+    "graphql mutations",
+    "graphql mutation batcher",
+    "graphql mutation factory"
   ],
   "author": "alechp <me@alechp.com>",
   "license": "ISC",
