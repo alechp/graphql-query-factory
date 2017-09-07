@@ -5,11 +5,11 @@
 
 
 ### Roadmap
-[ ] QueryFactory - Combines Builder & Batcher
-[x] QueryBuilder - Builds individual query strings based on the number of variable combinations you have. 
-[ ] QueryBatcher - Executes the entire array of GraphQL Query Strings.
-[x] Ava Tests
-[ ] CI status bar
+* [  ] QueryFactory - Combines Builder & Batcher
+* [x] QueryBuilder - Builds individual query strings based on the number of variable combinations you have. 
+* [ ] QueryBatcher - Executes the entire array of GraphQL Query Strings.
+* [x] Ava Tests
+* [ ] CI status bar
 
 ## Getting Started
 #### Installation
