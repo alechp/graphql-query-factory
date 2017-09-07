@@ -1,0 +1,19 @@
+{
+  "name": "graphql-query-factory-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava tests/*.js --verbose",
+    "test:watch": "ava tests/*.js --verbose --watch",
+    "ava": "ava --verbose"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ava": "^0.22.0",
+    "bluebird": "^3.5.0",
+    "path": "^0.12.7"
+  }
+}
