@@ -22,7 +22,7 @@ QueryFactory
 ```js
 Not available yet
 ```
-
+--------------------------------
 
 QueryBuilder - [Sample Project](https://github.com/alechp/graphql-query-factory/tree/master/graphql-query-factory-test-project)
 ```js
@@ -61,6 +61,37 @@ const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
                 .catch(err => log(`QueryBuilder failed. Error: ${err}`));
 
 ```
+QueryBuilder Output:
+```js
+mutation addMarkup($markup:String!, $raw: String!) {
+    createContent(
+      markup: markup1 
+      raw: raw1
+    ) {
+      markup
+      raw
+    }
+  }
+mutation addMarkup($markup:String!, $raw: String!) {
+    createContent(
+      markup: markup2 
+      raw: raw2
+    ) {
+      markup
+      raw
+    }
+  }
+mutation addMarkup($markup:String!, $raw: String!) {
+    createContent(
+      markup: markup3 
+      raw: raw3
+    ) {
+      markup
+      raw
+    }
+  }
+```
+--------------------------------
 
 QueryBatcher 
 ```js
