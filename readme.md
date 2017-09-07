@@ -2,12 +2,12 @@
 
 ## Getting Started
 #### Installation
-```
+```bash
 npm install graphql-query-batcher -S 
 ```
 
 #### Sample Use
-```
+```js
 const batcher = require('graphql-query-batcher');
 async function execute(){
   try { 

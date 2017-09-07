@@ -1,5 +1,5 @@
 {
-  "name": "graphql-query-batcher",
+  "name": "graphql-query-factory",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "ava": "ava --verbose"
   },
   "keywords": [],
-  "author": "",
+  "author": "alechp <me@alechp.com>",
   "license": "ISC",
   "dependencies": {
     "ava": "^0.22.0",
