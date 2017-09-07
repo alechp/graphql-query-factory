@@ -1,5 +1,5 @@
-const QueryBuilder = require('./builder');
+const builder = require('./builder.js');
 
 module.exports = {
-  QueryBuilder
+  builder
 }
