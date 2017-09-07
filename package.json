@@ -8,13 +8,20 @@
     "test:watch": "ava tests/*.js --verbose --watch",
     "ava": "ava --verbose"
   },
-  "keywords": ["graphql", "graphcool", "graphql queries", "graphql query batcher", "graphql query factory", "query factory"],
+  "keywords": [
+    "graphql",
+    "graphcool",
+    "graphql queries",
+    "graphql query batcher",
+    "graphql query factory",
+    "query factory"
+  ],
   "author": "alechp <me@alechp.com>",
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.5.0",
     "graphql-request": "^1.3.4"
-  }, 
+  },
   "devDependencies": {
     "ava": "^0.22.0",
     "chalk": "^2.1.0"
