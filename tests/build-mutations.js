@@ -1,6 +1,6 @@
 const builder = require('../builder.js');
-const log = console.log;
 const test = require('ava');
+
 const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
     markup: $markup 
@@ -10,11 +10,6 @@ const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
     raw
   }
 }`;
-
-const queryVariableObject = { 
-  "markup": "pusher complete",
-  "raw": "parammmmy2"
-};
 
 const queryVariablesArray = [
   {
