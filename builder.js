@@ -2,8 +2,8 @@ const chalk = require('chalk'); //https://www.npmjs.com/package/chalk
 const log = console.log;
 
 function builder(query, variables) {
-  let queries = new QueryBuilder(query, variables); 
-  return queries;
+  let queryStringsPromise = new QueryBuilder(query, variables); 
+  return queryStringsPromise;
 }
 class QueryBuilder {
   constructor(queryTemplate, queryVariables) { 
