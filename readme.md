@@ -5,7 +5,7 @@
 
 
 ### Roadmap
-* [  ] QueryFactory - Combines Builder & Batcher
+* [ ] QueryFactory - Combines Builder & Batcher
 * [x] QueryBuilder - Builds individual query strings based on the number of variable combinations you have. 
 * [ ] QueryBatcher - Executes the entire array of GraphQL Query Strings.
 * [x] Ava Tests
@@ -61,7 +61,6 @@ const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
                 .catch(err => log(`QueryBuilder failed. Error: ${err}`));
 
 ```
-> Better example will be posted later. For now take a look at the tests.
 
 QueryBatcher 
 ```js
