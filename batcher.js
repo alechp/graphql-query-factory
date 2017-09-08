@@ -6,7 +6,7 @@ const log = console.log;
 function batcher(queries, concurrent) { 
   let batcherHandle = new QueryBatcher(queries, concurrent);
   let executedBatchPromise = batcherHandle.batchQueryExecute();
-  log(`Inside batcher function`);
+  log(`Inside batcher function: ${executedBatchPromise}`);
   return executedBatchPromise;
 }
 class QueryBatcher {
@@ -40,6 +40,7 @@ class QueryBatcher {
       do {
         let sliced = await sliceQueryArray(queries);
         let sliceIndex = 0;
+        log(`Sliced: ${sliced}`);
         for(let s in sliced) { 
           switch(sliceIndex) {
             case 0: for(let query in s) { log(`Query in slice: ${slice}`);} break;
