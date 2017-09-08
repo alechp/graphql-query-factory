@@ -35,10 +35,11 @@ class QueryBatcher {
     // let query   
     let queries = this.getQueries(); 
     let concurrent = this.getConcurrent();
+    let sliced;
     log(`queries: ${queries} \n\n concurrent: ${concurrent} \n\n ^--- occurred in batchQueryExecute();`)
     try {
       do {
-        let sliced = await sliceQueryArray(queries);
+        sliced = sliceQueryArray(queries);
         let sliceIndex = 0;
         log(`Sliced: ${sliced}`);
         for(let s in sliced) { 
@@ -48,8 +49,11 @@ class QueryBatcher {
             default: throw new Error(`${chalk.red('batchQueryExecute() switch failed.')} Error: ${error}`); break;
           }
         }
+        
       } while(!isEmpty(sliced))
     } catch(error) { `${chalk.red('batchQueryExecute() failed to return promise.')} Error: ${error}` }
+    log(`Sliced outside of block: ${sliced}`);
+    return sliced;
   }
   async queryExecute(query) { 
     try { 
@@ -57,14 +61,12 @@ class QueryBatcher {
       return data;
     } catch(error) { log(`queryExecute failed. Error: ${error}`); }
   }
-  async sliceQueryArray(arrayOfQueries, concurrentConnections){
-    try { 
-      let original = arrayOfQueries;
-      let target = original.slice(0, concurrentConnections);
-      original = original.slice(concurrentConnections, original.length);
-      let queries = [target, original];
-      return queries;
-    } catch(error) { log(`Error: ${error}`); } 
+  sliceQueryArray(arrayOfQueries, concurrentConnections){
+    let original = arrayOfQueries;
+    let target = original.slice(0, concurrentConnections);
+    original = original.slice(concurrentConnections, original.length);
+    let queries = [target, original];
+    return queries;
   }
 }
 module.exports = batcher; 
