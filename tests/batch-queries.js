@@ -29,12 +29,12 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   }
 }`;
 
-
 async function runQueries(queries) { 
-  let qs = batcher(queries, 2);
-  let qsStr= String(qs);
-  log(`qs: ${JSON.stringify(qsStr)}`);
-  return qs;
+  try {
+    let ret = await batcher(queries, 4)
+    log(`ret: ${ret}`);
+    return ret;
+  } catch(error) { log(`Error: ${error}`)}
 }
 test('queries build and execute', async t => {
   // let queries = await builder(sampleMutation, queryVariablesArray);
