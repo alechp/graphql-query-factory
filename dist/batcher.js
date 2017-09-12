@@ -1,7 +1,6 @@
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 const { GraphQLClient } = require('graphql-request');
-const config = require('./config.js');
 const chalk = require('chalk');
 const log = console.log;
 
@@ -15,9 +14,9 @@ class QueryBatcher {
   constructor(queries, concurrent = 4) {
     this.queries = queries;
     this.concurrent = concurrent;
-    this.client = new GraphQLClient(config.GCOOL_API_SIMPLE_ENDPOINT, {
+    this.client = new GraphQLClient(process.env.GCOOL_API_SIMPLE_ENDPOINT, {
       headers: {
-        Authorization: `Bearer ${config.GCOOL_API_AUTH_TOKEN}`
+        Authorization: `Bearer ${process.env.GCOOL_API_AUTH_TOKEN}`
       }
     });
   }
@@ -37,7 +36,7 @@ class QueryBatcher {
     var _this = this;
 
     return _asyncToGenerator(function* () {
-      // let query   
+      // let query
       let queries = _this.getQueries();
       let concurrent = _this.getConcurrent();
       let sliced;
