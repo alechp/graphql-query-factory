@@ -1,21 +1,22 @@
 # GraphQL Query Batcher
+![CI Build Status Bar](https://travis-ci.org/alechp/graphql-query-factory.svg?branch=flow)
 
 ## Status
-> You can use QueryBuilder today. QueryBuilder takes an array of variable objects and injects them into your GraphQL query. 
+> You can use QueryBuilder today. QueryBuilder takes an array of variable objects and injects them into your GraphQL query.
 
 
 ### Roadmap
 * [ ] QueryFactory - Combines Builder & Batcher
-* [x] QueryBuilder - Builds individual query strings based on the number of variable combinations you have. 
+* [x] QueryBuilder - Builds individual query strings based on the number of variable combinations you have.
 * [ ] QueryBatcher - Executes the entire array of GraphQL Query Strings.
 * [x] Ava Tests
-* [ ] Flow Integration
-* [ ] CI status bar
+* [x] Flow Integration
+* [x] CI status bar
 
 ## Getting Started
 #### Installation
 ```bash
-npm install graphql-query-factory -S 
+npm install graphql-query-factory -S
 ```
 
 #### Sample Use
@@ -32,14 +33,14 @@ const log = console.log;
 
 const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
     createContent(
-      markup: $markup 
+      markup: $markup
       raw: $raw
     ) {
       markup
       raw
     }
   }`;
-  
+
   const queryVariablesArray = [
     {
       "markup": "markup1",
@@ -66,7 +67,7 @@ QueryBuilder Output:
 ```js
 mutation addMarkup($markup:String!, $raw: String!) {
     createContent(
-      markup: markup1 
+      markup: markup1
       raw: raw1
     ) {
       markup
@@ -75,7 +76,7 @@ mutation addMarkup($markup:String!, $raw: String!) {
   }
 mutation addMarkup($markup:String!, $raw: String!) {
     createContent(
-      markup: markup2 
+      markup: markup2
       raw: raw2
     ) {
       markup
@@ -84,7 +85,7 @@ mutation addMarkup($markup:String!, $raw: String!) {
   }
 mutation addMarkup($markup:String!, $raw: String!) {
     createContent(
-      markup: markup3 
+      markup: markup3
       raw: raw3
     ) {
       markup
@@ -94,7 +95,7 @@ mutation addMarkup($markup:String!, $raw: String!) {
 ```
 --------------------------------
 
-QueryBatcher 
+QueryBatcher
 ```js
 Not available yet
 ```
