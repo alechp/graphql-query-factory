@@ -9,6 +9,7 @@
 * [x] QueryBuilder - Builds individual query strings based on the number of variable combinations you have. 
 * [ ] QueryBatcher - Executes the entire array of GraphQL Query Strings.
 * [x] Ava Tests
+* [ ] Flow Integration
 * [ ] CI status bar
 
 ## Getting Started
