@@ -1,3 +1,5 @@
+// @flow
+
 const { GraphQLClient } = require('graphql-request')
 const config = require('./config.js');
 const chalk = require('chalk');
