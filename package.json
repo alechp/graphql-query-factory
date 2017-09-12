@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ava tests/*.js --verbose",
+    "build": "babel src --out-dir dist",
+    "test": "ava dist/tests/*.js --verbose",
+    "test:src": "ava /tests/*.js --verbose",
     "test:watch": "ava tests/*.js --verbose --watch",
     "ava": "ava --verbose"
   },
@@ -27,6 +29,9 @@
   },
   "devDependencies": {
     "ava": "^0.22.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
     "chalk": "^2.1.0",
     "flow-bin": "^0.54.1"
   }
