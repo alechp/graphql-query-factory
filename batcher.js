@@ -1,16 +1,16 @@
 const { GraphQLClient } = require('graphql-request')
-const config = require('./config.js');
 const chalk = require('chalk');
 const log = console.log;
 
-function batcher(queries, concurrent) { 
-  let batcherHandle = new QueryBatcher(queries, concurrent);
-  let executedBatchPromise = batcherHandle.batchQueryExecute();
+const batcher = async (queries, concurrent, config) => { 
+  let batcherHandle = new QueryBatcher(queries, concurrent, config);
+  let executedBatchPromise = await batcherHandle.queryExecute();
   log(`Inside batcher function: ${executedBatchPromise}`);
   return executedBatchPromise;
 }
 class QueryBatcher {
-  constructor(queries, concurrent=4) {
+  constructor(queries, concurrent=4, config) {
+    this.config = config;
     this.queries = queries;
     this.concurrent = concurrent;
     this.client = new GraphQLClient(config.GCOOL_API_SIMPLE_ENDPOINT, {
@@ -55,9 +55,10 @@ class QueryBatcher {
     log(`Sliced outside of block: ${sliced}`);
     return sliced;
   }
-  async queryExecute(query) { 
+  async queryExecute(query=this.query) { 
     try { 
-      let data = await client.request(query);
+      log(`Query being passed into queryExecute: ${query}`);
+      let data = await this.client.request(query);
       return data;
     } catch(error) { log(`queryExecute failed. Error: ${error}`); }
   }
@@ -69,4 +70,7 @@ class QueryBatcher {
     return queries;
   }
 }
-module.exports = batcher; 
+module.exports = {
+  batcher, 
+  QueryBatcher 
+} 

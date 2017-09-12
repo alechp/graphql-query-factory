@@ -1,5 +1,5 @@
 {
-  "name": "tt",
+  "name": "graphql-query-factory-test-project",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,6 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "graphql-query-factory": "^1.0.4"
+    "graphql-query-factory": "^1.0.10"
   }
 }
