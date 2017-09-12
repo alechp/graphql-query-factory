@@ -99,3 +99,30 @@ QueryBatcher
 ```js
 Not available yet
 ```
+
+--------------------------------
+
+### Todo
+> The TODO Sections represents smaller tasks that fit within the context of the Roadmap.
+
+##### Flow Types
+* [ ] Add Flow types to QueryBuilder
+* [ ] Add Flow types to QueryBatcher
+
+##### Environment Variables
+* [ ] Replace GCOOL variables with generic names
+* [ ] Update references in Travis build system (via travis website)
+* [ ] Add information on readme about configuring env variables
+
+##### Examples
+* [ ] Add factory-queries.js sample
+  * [ ] Add documentation that demonstrates this usage
+  * [ ] Add Ava test
+* [ ] Fix batcher-queries.js
+  * [ ] Add documentation that demonstrates this usage
+  * [ ] Add Ava test
+
+##### Finishing Touches
+* [ ] Create walkthrough video on usage
+* [ ] Generate static site that explains
+* [ ] Post to #general in Graph.cool slack channel
