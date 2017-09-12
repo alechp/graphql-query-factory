@@ -1,6 +1,5 @@
 const builderQueries = require('./builder.js');
-const { batcher } = require('../batcher.js');
-const config = require('../config.js');
+const { batcher } = require('graphql-query-factory');
 
-let val = batcher(builderQueries, 4, config);
+let val = batcher(builderQueries, 4);
 module.exports = val;
