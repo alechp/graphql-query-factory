@@ -1,11 +1,12 @@
 // @flow
 
+
 const { GraphQLClient } = require('graphql-request')
 const config = require('./config.js');
 const chalk = require('chalk');
 const log = console.log;
 
-function batcher(queries, concurrent) { 
+function batcher(queries: string, concurrent: number): Promise<any> { 
   let batcherHandle = new QueryBatcher(queries, concurrent);
   let executedBatchPromise = batcherHandle.batchQueryExecute();
   log(`Inside batcher function: ${executedBatchPromise}`);
