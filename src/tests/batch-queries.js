@@ -5,7 +5,7 @@ const log = console.log;
 
 const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
-    markup: markup1 
+    markup: markup1
     raw: raw1
   ) {
     markup
@@ -13,7 +13,7 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   }
 },mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
-    markup: markup2 
+    markup: markup2
     raw: raw2
   ) {
     markup
@@ -21,7 +21,7 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   }
 },mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
-    markup: markup3 
+    markup: markup3
     raw: raw3
   ) {
     markup
@@ -29,7 +29,7 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   }
 }`;
 
-async function runQueries(queries) { 
+async function runQueries(queries) {
   let ret;
   try {
     ret = await batcher(queries, 4)
