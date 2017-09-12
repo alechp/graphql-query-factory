@@ -1,7 +1,10 @@
-const batcher = require('../batcher.js')
 const test = require('ava');
 const chalk = require('chalk');
+const config = require('../config.js'); 
 const log = console.log;
+const Batcher = require('../batcher.js');
+const batcher = Batcher.batcher;
+const QueryBatcher = Batcher.QueryBatcher;
 
 const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
@@ -29,18 +32,19 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   }
 }`;
 
-async function runQueries(queries) { 
-  let ret;
-  try {
-    ret = await batcher(queries, 4)
-    log(`ret: ${typeof ret}`);
-  } catch(error) { log(`Error: ${error}`)}
-  return ret;
-}
-test('queries build and execute', async t => {
+test('queries batch execute', async t => {
   // let queries = await builder(sampleMutation, queryVariablesArray);
-  let execution = await runQueries(sampleQueries);
-  // log(`Execution: ${JSON.stringify(execution)}`);
-  log(`Execution: ${execution}`);
+  let singleQuery = `mutation addMarkup($markup:String!, $raw: String!) {
+    createContent(
+      markup: markup1 
+      raw: raw1
+    ) {
+      markup
+      raw
+    }
+  }`;
+  let qry = batcher(singleQuery, 4, config);
+  // let exec = await qry.queryExecute();
+  log(`Exec: ${qry}`);
   t.pass();
 });

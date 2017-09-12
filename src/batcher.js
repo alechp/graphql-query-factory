@@ -10,7 +10,8 @@ function batcher(queries: string, concurrent: number): Promise<any> {
   return executedBatchPromise;
 }
 class QueryBatcher {
-  constructor(queries, concurrent=4) {
+  constructor(queries, concurrent=4, config) {
+    this.config = config;
     this.queries = queries;
     this.concurrent = concurrent;
     this.client = new GraphQLClient(process.env.GCOOL_API_SIMPLE_ENDPOINT, {
@@ -55,9 +56,10 @@ class QueryBatcher {
     log(`Sliced outside of block: ${sliced}`);
     return sliced;
   }
-  async queryExecute(query) {
+  async queryExecute(query=this.query) {
     try {
-      let data = await client.request(query);
+      log(`Query being passed into queryExecute: ${query}`);
+      let data = await this.client.request(query);
       return data;
     } catch(error) { log(`queryExecute failed. Error: ${error}`); }
   }
@@ -69,4 +71,7 @@ class QueryBatcher {
     return queries;
   }
 }
-module.exports = batcher;
+module.exports = {
+  batcher,
+  QueryBatcher
+}

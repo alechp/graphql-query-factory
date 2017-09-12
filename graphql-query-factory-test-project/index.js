@@ -1,6 +1,6 @@
 const log = console.log;
 // const builder = require('./builder.js');
-const batcher = require('./batcher.js');
+const val = require('./batcher.js');
 
 // log(`Builder: ${builder}`);
 
