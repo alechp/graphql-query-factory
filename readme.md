@@ -110,7 +110,7 @@ Not available yet
 * [ ] Add Flow types to QueryBatcher
 
 ##### Environment Variables
-* [ ] Replace GCOOL variables with generic names
+* [x] Replace GCOOL variables with generic names
 * [ ] Update references in Travis build system (via travis website)
 * [ ] Add information on readme about configuring env variables
 
@@ -128,11 +128,4 @@ Not available yet
 * [ ] Post to #general in Graph.cool slack channel
 * [ ] Add repository field to Package
 * [ ] Update dist to /lib (makes more sense)
-* [ ] Update dist to /lib (makes more sense)
-* [ ] Update dist to /lib (makes more sense)
-* [ ] Update dist to /lib (makes more sense)
-* [ ] Update dist to /lib (makes more sense)
-* [ ] Update dist to /lib (makes more sense)
-* [ ] Update dist to /lib (makes more sense)
-* [ ] Update dist to /lib (makes more sense)
-
+* [ ] Add [apollo-codegen](https://github.com/apollographql/apollo-codegen) [apollo tutorial](http://dev.apollodata.com/react/using-with-types.html)

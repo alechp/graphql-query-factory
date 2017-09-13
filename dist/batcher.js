@@ -10,13 +10,13 @@ function batcher(queries, concurrent) {
   return executedBatchPromise;
 }
 class QueryBatcher {
-  constructor(queriesToBeExecuted, concurrentNumberOfConnections = 4) {
+  constructor(queriesToBeExecuted, concurrentNumberOfConnections) {
     let queries, concurrent, client;
     this.queries = queriesToBeExecuted;
     this.concurrent = concurrentNumberOfConnections;
-    this.client = new GraphQLClient(process.env.GCOOL_API_SIMPLE_ENDPOINT, {
+    this.client = new GraphQLClient(process.env.GQL_SIMPLE_ENDPOINT, {
       headers: {
-        Authorization: `Bearer ${process.env.GCOOL_API_AUTH_TOKEN}`
+        Authorization: `Bearer ${process.env.GQL_AUTH_TOKEN}`
       }
     });
   }
@@ -64,11 +64,9 @@ class QueryBatcher {
     let original = arrayOfQueries;
     let target = original.slice(0, concurrentConnections);
     original = original.slice(concurrentConnections, original.length);
-    // let queries: Array<string> = [...target, ...original];
-    let queries = {
-      target: [...target],
-      original: [...original]
-    };
+    log(`${chalk.green('\nTarget\n---------------------------------\n')} ${target}`);
+    log(`${chalk.green('\nOriginal\n---------------------------------\n')} ${original}`);
+    let queries = [target, original];
     return queries;
   }
 }
