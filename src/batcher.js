@@ -1,6 +1,8 @@
+//@flow
 
 const { GraphQLClient } = require('graphql-request')
 const chalk = require('chalk');
+const isEmpty = require('is-empty');
 const log = console.log;
 
 function batcher(queries: string, concurrent: number): Promise<any> {
@@ -10,7 +12,7 @@ function batcher(queries: string, concurrent: number): Promise<any> {
   return executedBatchPromise;
 }
 class QueryBatcher {
-  constructor(queries: Array<string>, concurrent=4: number) {
+  constructor(queries: Array<string>, concurrent: number = 4) {
     this.queries = queries;
     this.concurrent = concurrent;
     this.client = new GraphQLClient(process.env.GCOOL_API_SIMPLE_ENDPOINT, {
@@ -32,16 +34,16 @@ class QueryBatcher {
     this.concurrent=numberOfConcurrentConnections;
   }
 
-  async batchQueryExecute() {
+  async batchQueryExecute(): Array<string> {
     // let query
     let queries: string = this.getQueries();
     let concurrent: string = this.getConcurrent();
-    let sliced;
+    let sliced: Array<string>;
     log(`queries: ${queries} \n\n concurrent: ${concurrent} \n\n ^--- occurred in batchQueryExecute();`)
     try {
       do {
         sliced = sliceQueryArray(queries);
-        let sliceIndex = 0;
+        let sliceIndex: number = 0;
         log(`Sliced: ${sliced}`);
         for(let s in sliced) {
           switch(sliceIndex) {
@@ -59,16 +61,16 @@ class QueryBatcher {
 
   async queryExecute(query: string): Promise<any> {
     try {
-      let data = await client.request(query);
+      let data: Promise<any> = await client.request(query);
       return data;
     } catch(error) { log(`queryExecute failed. Error: ${error}`); }
   }
 
   sliceQueryArray(arrayOfQueries: Array<string>, concurrentConnections: number): Array<string>{
-    let original = arrayOfQueries;
-    let target = original.slice(0, concurrentConnections);
+    let original: Array<string> = arrayOfQueries;
+    let target: Array<string> = original.slice(0, concurrentConnections);
     original = original.slice(concurrentConnections, original.length);
-    let queries = [target, original];
+    let queries: Array<string> = [target, original];
     return queries;
   }
 }

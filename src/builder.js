@@ -1,3 +1,5 @@
+//@flow
+
 const chalk = require('chalk'); //https://www.npmjs.com/package/chalk
 const log = console.log;
 
