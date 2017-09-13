@@ -2,19 +2,18 @@
 
 const { GraphQLClient } = require('graphql-request')
 const chalk = require('chalk');
-const isEmpty = require('is-empty');
 const log = console.log;
 
-function batcher(queries: string, concurrent: number): Promise<any> {
+function batcher(queries: Array<string>, concurrent: number): mixed {
   let batcherHandle = new QueryBatcher(queries, concurrent);
   let executedBatchPromise = batcherHandle.batchQueryExecute();
-  log(`Inside batcher function: ${executedBatchPromise}`);
   return executedBatchPromise;
 }
 class QueryBatcher {
-  constructor(queries: Array<string>, concurrent: number = 4) {
-    this.queries = queries;
-    this.concurrent = concurrent;
+  constructor(queriesToBeExecuted: Array<string>, concurrentNumberOfConnections: number = 4) {
+    let queries: Array<string>, concurrent: number, client: GraphQLClient;
+    this.queries = queriesToBeExecuted;
+    this.concurrent = concurrentNumberOfConnections;
     this.client = new GraphQLClient(process.env.GCOOL_API_SIMPLE_ENDPOINT, {
       headers: {
         Authorization: `Bearer ${process.env.GCOOL_API_AUTH_TOKEN}`
@@ -34,34 +33,23 @@ class QueryBatcher {
     this.concurrent=numberOfConcurrentConnections;
   }
 
-  async batchQueryExecute(): Array<string> {
+  batchQueryExecute(): Array<string> {
     // let query
     let queries: string = this.getQueries();
     let concurrent: string = this.getConcurrent();
-    let sliced: Array<string> = this.sliceQueryArray(queries);
-    log(`queries: ${queries} \n\n concurrent: ${concurrent} \n\n ^--- occurred in batchQueryExecute();`)
+    let sliced: mixed = this.sliceQueryArray(queries);
     try {
-      do {
-        let sliceIndex: number = 0;
-        log(`Sliced: ${sliced}`);
-        for(let [key: string, singleQueryFromArray: string] of sliced) {
-          sliceIndex = key;
-          switch(sliceIndex) {
-            case 0: for(let query in singleQueryFromArray) { log(`Query in slice: ${slice}`);} break;
-            case 1: queries = sliced[1]; break; //the new "original" query
-            default: throw new Error(`${chalk.red('batchQueryExecute() switch failed.')} Error: ${error}`); break;
-          }
-        }
-
-      } while(!isEmpty(sliced))
+      let sliceIndex: number = 0;
+      for(let [key: string, singleQueryFromArray: string] of sliced) {
+        log(`batcher.js/batchQueryExecute/: ${chalk.green(key)} : ${chalk.white(value)}`);
+      }
     } catch(error) { `${chalk.red('batchQueryExecute() failed to return promise.')} Error: ${error}` }
-    log(`Sliced outside of block: ${sliced}`);
     return sliced;
   }
 
-  async queryExecute(query: string): Promise<any> {
+  async queryExecute(query: string): mixed {
     try {
-      let data: Promise<any> = await client.request(query);
+      let data: mixed = await this.client.request(query);
       return data;
     } catch(error) { log(`queryExecute failed. Error: ${error}`); }
   }
@@ -72,8 +60,8 @@ class QueryBatcher {
     original = original.slice(concurrentConnections, original.length);
     // let queries: Array<string> = [...target, ...original];
     let queries = {
-        'target': [...target],
-        'original': [...original]
+        target: [...target],
+        original: [...original]
     }
     return queries;
   }

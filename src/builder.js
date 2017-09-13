@@ -3,12 +3,13 @@
 const chalk = require('chalk'); //https://www.npmjs.com/package/chalk
 const log = console.log;
 
-function builder(query: string, variables: mixed): Promise<any> {
+function builder(query: string, variables: mixed): mixed {
   let queryStringsPromise = new QueryBuilder(query, variables);
   return queryStringsPromise;
 }
 class QueryBuilder {
   constructor(queryTemplate: string, queryVariables: mixed) {
+    let query: string, vars: mixed;
     this.query = queryTemplate;
     this.vars = queryVariables;
     let queries = this.buildQueries();
@@ -26,7 +27,7 @@ class QueryBuilder {
   setVariables(vars){
     this.vars = vars;
   }
-  async extractQueryParams(query: string): Array<string> {
+  extractQueryParams(query: string): ?Array<string> {
    /* We already have getVariables to define the variables being passed in explicitly.
     The purpose of this function is to extract the parameters from the query call signature.
     The regex used here works for single line and multiline call signatures alike.
@@ -42,7 +43,7 @@ class QueryBuilder {
       log(`queryFactory::query Error: ${chalk.red(error)}`)
     }
   }
-  async injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
+  injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
     let query: string = queryTemplate, queryOriginal: string = queryTemplate;
     let queries: Array<string> = [];
     // let queryOriginal = queryTemplate;
