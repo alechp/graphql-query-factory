@@ -126,3 +126,13 @@ Not available yet
 * [ ] Create walkthrough video on usage
 * [ ] Generate static site that explains
 * [ ] Post to #general in Graph.cool slack channel
+* [ ] Add repository field to Package
+* [ ] Update dist to /lib (makes more sense)
+* [ ] Update dist to /lib (makes more sense)
+* [ ] Update dist to /lib (makes more sense)
+* [ ] Update dist to /lib (makes more sense)
+* [ ] Update dist to /lib (makes more sense)
+* [ ] Update dist to /lib (makes more sense)
+* [ ] Update dist to /lib (makes more sense)
+* [ ] Update dist to /lib (makes more sense)
+
