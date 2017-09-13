@@ -7,7 +7,7 @@ const log = console.log;
 
 function batcher(queries: string, concurrent: number): Promise<any> {
   let batcherHandle = new QueryBatcher(queries, concurrent);
-  let executedBatchPromise = batcherHandle.batchqueryexecute();
+  let executedBatchPromise = batcherHandle.batchQueryExecute();
   log(`Inside batcher function: ${executedBatchPromise}`);
   return executedBatchPromise;
 }
@@ -38,16 +38,16 @@ class QueryBatcher {
     // let query
     let queries: string = this.getQueries();
     let concurrent: string = this.getConcurrent();
-    let sliced: Array<string>;
+    let sliced: Array<string> = this.sliceQueryArray(queries);
     log(`queries: ${queries} \n\n concurrent: ${concurrent} \n\n ^--- occurred in batchQueryExecute();`)
     try {
       do {
-        sliced = sliceQueryArray(queries);
         let sliceIndex: number = 0;
         log(`Sliced: ${sliced}`);
-        for(let s in sliced) {
+        for(let [key: string, singleQueryFromArray: string] of sliced) {
+          sliceIndex = key;
           switch(sliceIndex) {
-            case 0: for(let query in s) { log(`Query in slice: ${slice}`);} break;
+            case 0: for(let query in singleQueryFromArray) { log(`Query in slice: ${slice}`);} break;
             case 1: queries = sliced[1]; break; //the new "original" query
             default: throw new Error(`${chalk.red('batchQueryExecute() switch failed.')} Error: ${error}`); break;
           }
@@ -66,11 +66,15 @@ class QueryBatcher {
     } catch(error) { log(`queryExecute failed. Error: ${error}`); }
   }
 
-  sliceQueryArray(arrayOfQueries: Array<string>, concurrentConnections: number): Array<string>{
+  sliceQueryArray(arrayOfQueries: Array<string>, concurrentConnections: number): mixed{
     let original: Array<string> = arrayOfQueries;
     let target: Array<string> = original.slice(0, concurrentConnections);
     original = original.slice(concurrentConnections, original.length);
-    let queries: Array<string> = [target, original];
+    // let queries: Array<string> = [...target, ...original];
+    let queries = {
+        'target': [...target],
+        'original': [...original]
+    }
     return queries;
   }
 }

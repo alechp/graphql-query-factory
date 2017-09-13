@@ -39,7 +39,7 @@ async function runQueries(queries) {
 }
 test('queries build and execute', async t => {
   // let queries = await builder(sampleMutation, queryVariablesArray);
-  let execution = await runQueries(sampleQueries);
+  let execution = await batcher(sampleQueries, 4);
   // log(`Execution: ${JSON.stringify(execution)}`);
   log(`Execution: ${execution}`);
   t.pass();

@@ -28,12 +28,12 @@ class QueryBuilder {
   }
   extractQueryParams(query) {
     return _asyncToGenerator(function* () {
-      /* We already have getVariables to define the variables being passed in explicitly. 
-       The purpose of this function is to extract the parameters from the query call signature. 
-       The regex used here works for single line and multiline call signatures alike. 
+      /* We already have getVariables to define the variables being passed in explicitly.
+       The purpose of this function is to extract the parameters from the query call signature.
+       The regex used here works for single line and multiline call signatures alike.
        e.g. query nameOfQuery($param: String!, $param2: String!) { }
        e.g. query nameOfQuery($param: String!,
-                              $param2: String!) { } 
+                              $param2: String!) { }
        */
       let regex = /\$\w+(?=[\):])/g;
       try {
@@ -60,7 +60,7 @@ class QueryBuilder {
             let newQuery = query.replace(regexp, function (match, pos, original) {
               matchIncrementor++;
               return matchIncrementor == 2 ? value : match;
-              //replace the second instance of the query. 
+              //replace the second instance of the query.
               // 1st instance = query parameter in query signature
               // 2nd instance (replace) = query argument
             });

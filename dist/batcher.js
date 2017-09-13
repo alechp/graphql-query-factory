@@ -2,6 +2,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 const { GraphQLClient } = require('graphql-request');
 const chalk = require('chalk');
+const isEmpty = require('is-empty');
 const log = console.log;
 
 function batcher(queries, concurrent) {
@@ -32,6 +33,7 @@ class QueryBatcher {
   setConcurrent(numberOfConcurrentConnections) {
     this.concurrent = numberOfConcurrentConnections;
   }
+
   batchQueryExecute() {
     var _this = this;
 
@@ -39,17 +41,17 @@ class QueryBatcher {
       // let query
       let queries = _this.getQueries();
       let concurrent = _this.getConcurrent();
-      let sliced;
+      let sliced = _this.sliceQueryArray(queries);
       log(`queries: ${queries} \n\n concurrent: ${concurrent} \n\n ^--- occurred in batchQueryExecute();`);
       try {
         do {
-          sliced = sliceQueryArray(queries);
           let sliceIndex = 0;
           log(`Sliced: ${sliced}`);
-          for (let s in sliced) {
+          for (let [key, singleQueryFromArray] of sliced) {
+            sliceIndex = key;
             switch (sliceIndex) {
               case 0:
-                for (let query in s) {
+                for (let query in singleQueryFromArray) {
                   log(`Query in slice: ${slice}`);
                 }break;
               case 1:
@@ -66,6 +68,7 @@ class QueryBatcher {
       return sliced;
     })();
   }
+
   queryExecute(query) {
     return _asyncToGenerator(function* () {
       try {
@@ -76,12 +79,18 @@ class QueryBatcher {
       }
     })();
   }
+
   sliceQueryArray(arrayOfQueries, concurrentConnections) {
     let original = arrayOfQueries;
     let target = original.slice(0, concurrentConnections);
     original = original.slice(concurrentConnections, original.length);
-    let queries = [target, original];
+    // let queries: Array<string> = [...target, ...original];
+    let queries = {
+      'target': [...target],
+      'original': [...original]
+    };
     return queries;
   }
 }
+
 module.exports = batcher;

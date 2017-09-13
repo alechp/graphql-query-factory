@@ -24,7 +24,7 @@ const log = console.log;
 
 const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
-    markup: markup1 
+    markup: markup1
     raw: raw1
   ) {
     markup
@@ -32,7 +32,7 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   }
 },mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
-    markup: markup2 
+    markup: markup2
     raw: raw2
   ) {
     markup
@@ -40,7 +40,7 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   }
 },mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
-    markup: markup3 
+    markup: markup3
     raw: raw3
   ) {
     markup
@@ -51,7 +51,7 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
 test('queries build and execute', (() => {
   var _ref2 = _asyncToGenerator(function* (t) {
     // let queries = await builder(sampleMutation, queryVariablesArray);
-    let execution = yield runQueries(sampleQueries);
+    let execution = yield batcher(sampleQueries, 4);
     // log(`Execution: ${JSON.stringify(execution)}`);
     log(`Execution: ${execution}`);
     t.pass();
