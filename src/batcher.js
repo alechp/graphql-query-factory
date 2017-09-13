@@ -23,7 +23,8 @@ class QueryBatcher {
   getQueries(): string {
     return this.queries;
   }
-  setQueries(arrayOfQueryStrings: Array<string>) {
+  setQueries(arrayOfQueryStrings) {
+    let qs = this.queries;
     this.queries = arrayOfQueryStrings;
   }
   getConcurrent(): string {
@@ -32,9 +33,7 @@ class QueryBatcher {
   setConcurrent(numberOfConcurrentConnections: number){
     this.concurrent=numberOfConcurrentConnections;
   }
-
   batchQueryExecute(): Array<string> {
-    // let query
     let queries: string = this.getQueries();
     let concurrent: string = this.getConcurrent();
     let sliced: mixed = this.sliceQueryArray(queries);
@@ -53,7 +52,6 @@ class QueryBatcher {
       return data;
     } catch(error) { log(`queryExecute failed. Error: ${error}`); }
   }
-
   sliceQueryArray(arrayOfQueries: Array<string>, concurrentConnections: number): mixed{
     let original: Array<string> = arrayOfQueries;
     let target: Array<string> = original.slice(0, concurrentConnections);
