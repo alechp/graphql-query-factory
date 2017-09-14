@@ -3,13 +3,14 @@
 const chalk = require('chalk'); //https://www.npmjs.com/package/chalk
 const log = console.log;
 
-function builder(query: string, variables: mixed): mixed {
+function builder(query: string, variables: Array<mixed>): mixed {
   let queryStringsPromise = new QueryBuilder(query, variables);
   return queryStringsPromise;
 }
 class QueryBuilder {
-  constructor(queryTemplate: string, queryVariables: mixed) {
-    let query: string, vars: mixed;
+  query: string;
+  vars: Array<mixed>;
+  constructor(queryTemplate: string, queryVariables: Array<mixed>) {
     this.query = queryTemplate;
     this.vars = queryVariables;
     let queries = this.buildQueries();
@@ -21,7 +22,7 @@ class QueryBuilder {
   setQuery(query){
     this.query = query;
   }
-  getVariables(): string{
+  getVariables(): Array<mixed>{
     return this.vars;
   }
   setVariables(vars){
@@ -74,10 +75,10 @@ class QueryBuilder {
   }
   async buildQueries() {
     let q: string = this.getQuery();
-    let qVars: string = this.getVariables();
+    let qVars: mixed = this.getVariables();
     try {
-      let qParams = await this.extractQueryParams(q);
-      let qWithArguments = await this.injectQueryArguments(q, qParams, qVars);
+      let qParams: ?Array<string>  = await this.extractQueryParams(q);
+      let qWithArguments: Array<string> = await this.injectQueryArguments(q, qParams, qVars);
       return qWithArguments;
     } catch(error) {
       log(`buildQuery error: ${error}`);

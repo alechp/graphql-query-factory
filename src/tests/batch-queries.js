@@ -3,7 +3,7 @@ const test = require('ava');
 const chalk = require('chalk');
 const log = console.log;
 
-const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
+const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
     markup: markup1
     raw: raw1
@@ -11,7 +11,8 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-},mutation addMarkup($markup:String!, $raw: String!) {
+}`,
+`mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
     markup: markup2
     raw: raw2
@@ -19,7 +20,8 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-},mutation addMarkup($markup:String!, $raw: String!) {
+}`,
+`mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
     markup: markup3
     raw: raw3
@@ -27,7 +29,8 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-},mutation addMarkup($markup:String!, $raw: String!) {
+}`,
+`mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
     markup: markup4
     raw: raw4
@@ -35,7 +38,8 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-},mutation addMarkup($markup:String!, $raw: String!) {
+}`,
+`mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
     markup: markup5
     raw: raw5
@@ -43,7 +47,8 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-},mutation addMarkup($markup:String!, $raw: String!) {
+}`,
+`mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
     markup: markup6
     raw: raw6
@@ -51,7 +56,8 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-},mutation addMarkup($markup:String!, $raw: String!) {
+}`,
+`mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
     markup: markup7
     raw: raw7
@@ -59,7 +65,7 @@ const sampleQueries = `mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`;
+}`];
 
 test('queries build and execute', async t => {
   let execution = await batcher(sampleQueries, 2);
