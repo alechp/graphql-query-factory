@@ -91,7 +91,7 @@ test('slice query array', t => {
   let q = new QueryBatcher(sampleQueries, 2);
   let sliced = q.sliceQueryArray();
   let target = sliced.target;
-  log(`${chalk.yellow('\nSliced Array from Original Query Array\n-------------------------------------\n')} ${String(target)}`);
+  log(`${chalk.blue('\nSliced Array from Original Query Array\n-------------------------------------\n')} ${String(chalk.grey(target))}`);
   // log(`${chalk.yellow('\nExpected Slice\n-------------------------------------\n')} ${String(expectedSlice)}`);
   t.is(String(target), String(expectedSlice));
 });
@@ -101,17 +101,6 @@ test('execute single query', async t => {
   let sliced: mixed = q.sliceQueryArray();
   let stringified: string = String(sliced.target);
   let target = sliced.target;
-  log(`Target vanilla: ${target}`);
-  log(`Target parsed: ${String(target)}`);
-  Object.entries(sliced).forEach( ([key, val]) => {
-    for(let query of val) {
-      q.queryExecute(String(query))
-      .then(data => {
-        log(`Data from queryExecute inside batch-queries test: ${data}`);
-      });
-    }
-    log(`\nK[${key}]\t\tV[${typeof val}]\n\n`);
-   });
-  log(`${chalk.blue('\nExecuting Target\n------------------------------------\n')} ${stringified}`);
+  log(`${chalk.yellow('\nExecuting Target\n------------------------------------\n')} ${stringified}`);
   t.pass();
 });

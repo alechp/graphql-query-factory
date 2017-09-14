@@ -56,7 +56,7 @@ test('queries build', (() => {
   var _ref = _asyncToGenerator(function* (t) {
     let qs = yield builder(sampleMutation, queryVariablesArray);
     let queries = String(qs);
-    log(`${chalk.blue('\nQueries\n------------------------------------\n')} ${queries}`);
+    log(`${chalk.blue('\nQueries\n------------------------------------\n')} ${chalk.grey(queries)}`);
     t.is(queries, expectedQueries);
   });
 
