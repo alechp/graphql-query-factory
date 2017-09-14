@@ -1,9 +1,11 @@
 const builder = require('../builder.js');
 const test = require('ava');
+const chalk = require('chalk');
+const log = console.log;
 
 const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
-    markup: $markup 
+    markup: $markup
     raw: $raw
   ) {
     markup
@@ -28,7 +30,7 @@ const queryVariablesArray = [
 
 const expectedQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
-    markup: markup1 
+    markup: markup1
     raw: raw1
   ) {
     markup
@@ -36,7 +38,7 @@ const expectedQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   }
 },mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
-    markup: markup2 
+    markup: markup2
     raw: raw2
   ) {
     markup
@@ -44,21 +46,17 @@ const expectedQueries = `mutation addMarkup($markup:String!, $raw: String!) {
   }
 },mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
-    markup: markup3 
+    markup: markup3
     raw: raw3
   ) {
     markup
     raw
   }
 }`;
-async function b(){
-  let qs = await builder(sampleMutation, queryVariablesArray);
-  let queries = String(qs); 
-  return queries;
-}
 
 test('queries build', async t => {
-  // let queries = await builder(sampleMutation, queryVariablesArray);
-  let queries = await b();
+  let qs = await builder(sampleMutation, queryVariablesArray);
+  let queries = String(qs);
+  log(`${chalk.blue('\nQueries\n------------------------------------\n')} ${queries}`);
   t.is(queries, expectedQueries)
 });

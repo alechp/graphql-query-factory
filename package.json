@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "buildAndTest": "npm run build && npm test",
+    "dev": "npm run build && npm test",
     "build": "babel src --out-dir dist",
     "test": "ava dist/tests/*.js --verbose",
     "test:watch": "ava tests/*.js --verbose --watch",
@@ -25,12 +25,13 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^4.0.0",
-    "graphql-request": "^1.3.4",
-    "is-empty": "^1.2.0"
+    "graphql-request": "^1.3.4"
   },
   "devDependencies": {
     "ava": "^0.22.0",
     "babel-cli": "^6.26.0",
+    "babel-plugin-inline-dotenv": "^1.1.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
     "chalk": "^2.1.0",

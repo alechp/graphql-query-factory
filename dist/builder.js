@@ -27,54 +27,50 @@ class QueryBuilder {
     this.vars = vars;
   }
   extractQueryParams(query) {
-    return _asyncToGenerator(function* () {
-      /* We already have getVariables to define the variables being passed in explicitly. 
-       The purpose of this function is to extract the parameters from the query call signature. 
-       The regex used here works for single line and multiline call signatures alike. 
-       e.g. query nameOfQuery($param: String!, $param2: String!) { }
-       e.g. query nameOfQuery($param: String!,
-                              $param2: String!) { } 
-       */
-      let regex = /\$\w+(?=[\):])/g;
-      try {
-        let queryParams = query.match(regex);
-        return queryParams;
-      } catch (error) {
-        log(`queryFactory::query Error: ${chalk.red(error)}`);
-      }
-    })();
+    /* We already have getVariables to define the variables being passed in explicitly.
+     The purpose of this function is to extract the parameters from the query call signature.
+     The regex used here works for single line and multiline call signatures alike.
+     e.g. query nameOfQuery($param: String!, $param2: String!) { }
+     e.g. query nameOfQuery($param: String!,
+                            $param2: String!) { }
+     */
+    let regex = /\$\w+(?=[\):])/g;
+    try {
+      let queryParams = query.match(regex);
+      return queryParams;
+    } catch (error) {
+      log(`queryFactory::query Error: ${chalk.red(error)}`);
+    }
   }
   injectQueryArguments(queryTemplate, queryParams, queryVariables) {
-    return _asyncToGenerator(function* () {
-      let query = queryTemplate,
-          queryOriginal = queryTemplate;
-      let queries = [];
-      // let queryOriginal = queryTemplate;
-      try {
-        for (let varObj of queryVariables) {
-          //grab first object...
-          for (let [key, value] of Object.entries(varObj)) {
-            // split object into key value pairs and iterate over for each key
-            let regexp = new RegExp(`\\$${key}`, 'g');
-            let matchIncrementor = 0;
-            let newQuery = query.replace(regexp, function (match, pos, original) {
-              matchIncrementor++;
-              return matchIncrementor == 2 ? value : match;
-              //replace the second instance of the query. 
-              // 1st instance = query parameter in query signature
-              // 2nd instance (replace) = query argument
-            });
-            query = newQuery;
-            // we asssign this query so that the next replace will already have the previous argument passed in
-          }
-          queries.push(query); // begin building array of queries
-          query = queryOriginal; //reset query to the original query passed into this function so that we can perform same parsing on next set of variables
+    let query = queryTemplate,
+        queryOriginal = queryTemplate;
+    let queries = [];
+    // let queryOriginal = queryTemplate;
+    try {
+      for (let varObj of queryVariables) {
+        //grab first object...
+        for (let [key, value] of Object.entries(varObj)) {
+          // split object into key value pairs and iterate over for each key
+          let regexp = new RegExp(`\\$${key}`, 'g');
+          let matchIncrementor = 0;
+          let newQuery = query.replace(regexp, (match, pos, original) => {
+            matchIncrementor++;
+            return matchIncrementor == 2 ? value : match;
+            //replace the second instance of the query.
+            // 1st instance = query parameter in query signature
+            // 2nd instance (replace) = query argument
+          });
+          query = newQuery;
+          // we asssign this query so that the next replace will already have the previous argument passed in
         }
-        return queries;
-      } catch (error) {
-        log(`Error: ${error}`);
+        queries.push(query); // begin building array of queries
+        query = queryOriginal; //reset query to the original query passed into this function so that we can perform same parsing on next set of variables
       }
-    })();
+      return queries;
+    } catch (error) {
+      log(`Error: ${error}`);
+    }
   }
   buildQueries() {
     var _this = this;

@@ -105,13 +105,22 @@ Not available yet
 ### Todo
 > The TODO Sections represents smaller tasks that fit within the context of the Roadmap.
 
+##### Builder
+* [x] Ensure that output is formatted as an array
+
+##### Batcher
+* [ ] tests
+  * [ ] execute single query
+  * [ ] execute all queries
+  * [ ]
 ##### Flow Types
-* [ ] Add Flow types to QueryBuilder
-* [ ] Add Flow types to QueryBatcher
+* [x] Add Flow types to QueryBuilder
+* [x] Add Flow types to QueryBatcher
+* [ ] Fix remaining Flow type errors (appended at README below)
 
 ##### Environment Variables
-* [ ] Replace GCOOL variables with generic names
-* [ ] Update references in Travis build system (via travis website)
+* [x] Replace GCOOL variables with generic names
+* [x] Update references in Travis build system (via travis website)
 * [ ] Add information on readme about configuring env variables
 
 ##### Examples
@@ -121,8 +130,57 @@ Not available yet
 * [ ] Fix batcher-queries.js
   * [ ] Add documentation that demonstrates this usage
   * [ ] Add Ava test
+* [ ] Add React (CRA) example
+* [ ] Add simple node (CLI) example
 
 ##### Finishing Touches
 * [ ] Create walkthrough video on usage
 * [ ] Generate static site that explains
 * [ ] Post to #general in Graph.cool slack channel
+* [ ] Add repository field to Package
+* [ ] Add [apollo-codegen](https://github.com/apollographql/apollo-codegen) [apollo tutorial](http://dev.apollodata.com/react/using-with-types.html)
+* [ ] Add contribution section below
+* [ ] Remove Flow Errors below
+* [ ] Move all examples to one directory
+
+
+-----------------------
+
+#### Current Flow Errors to Cleanup:
+```
+src/batcher.js:15
+ 15:   constructor(queries, concurrent) {
+                   ^^^^^^^ parameter `queries`. Missing annotation
+
+src/batcher.js:15
+ 15:   constructor(queries, concurrent) {
+                            ^^^^^^^^^^ parameter `concurrent`. Missing annotation
+
+src/builder.js:47
+ 47:   injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
+                                                                                                       ^^^^^^^^^^^^^ array type. This type is incompatible with an implicitly-returned undefined.
+
+src/builder.js:52
+ 52:      for(let varObj of queryVariables){
+          ^ property `@@iterator` of $Iterable. Property not found in
+ 52:      for(let varObj of queryVariables){
+                            ^^^^^^^^^^^^^^ mixed
+
+src/builder.js:60
+ 60:            return (matchIncrementor == 2) ? value : match;
+                                                 ^^^^^ mixed. This type is incompatible with
+291:     replace(searchValue: string | RegExp, replaceValue: string | (substring: string, ...args: Array<any>) => string): string;
+                                                                                                                  ^^^^^^ string. See lib: /private/tmp/flow/flowlib_8d4b9e8/core.js:291
+
+src/builder.js:81
+ 81:       let qWithArguments: Array<string> = await this.injectQueryArguments(q, qParams, qVars);
+                                                                                  ^^^^^^^ null. This type is incompatible with the expected param type of
+ 47:   injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
+                                                                ^^^^^^^^^^^^^ array type
+
+src/builder.js:81
+ 81:       let qWithArguments: Array<string> = await this.injectQueryArguments(q, qParams, qVars);
+                                                                                  ^^^^^^^ undefined. This type is incompatible with the expected param type of
+ 47:   injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
+                                                                ^^^^^^^^^^^^^ array type
+```

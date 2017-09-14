@@ -1,48 +1,52 @@
+//@flow
+
 const chalk = require('chalk'); //https://www.npmjs.com/package/chalk
 const log = console.log;
 
-function builder(query, variables) {
-  let queryStringsPromise = new QueryBuilder(query, variables); 
+function builder(query: string, variables: Array<mixed>): mixed {
+  let queryStringsPromise = new QueryBuilder(query, variables);
   return queryStringsPromise;
 }
 class QueryBuilder {
-  constructor(queryTemplate, queryVariables) { 
+  query: string;
+  vars: Array<mixed>;
+  constructor(queryTemplate: string, queryVariables: Array<mixed>) {
     this.query = queryTemplate;
     this.vars = queryVariables;
     let queries = this.buildQueries();
     return queries;
   }
-  getQuery(){
+  getQuery(): string{
     return this.query;
   }
   setQuery(query){
     this.query = query;
   }
-  getVariables(){
+  getVariables(): Array<mixed>{
     return this.vars;
   }
   setVariables(vars){
     this.vars = vars;
   }
-  async extractQueryParams(query) { 
-   /* We already have getVariables to define the variables being passed in explicitly. 
-    The purpose of this function is to extract the parameters from the query call signature. 
-    The regex used here works for single line and multiline call signatures alike. 
+  extractQueryParams(query: string): ?Array<string> {
+   /* We already have getVariables to define the variables being passed in explicitly.
+    The purpose of this function is to extract the parameters from the query call signature.
+    The regex used here works for single line and multiline call signatures alike.
     e.g. query nameOfQuery($param: String!, $param2: String!) { }
     e.g. query nameOfQuery($param: String!,
-                           $param2: String!) { } 
+                           $param2: String!) { }
     */
     let regex = /\$\w+(?=[\):])/g;
-    try { 
+    try {
       let queryParams = query.match(regex);
       return queryParams;
     } catch(error) {
       log(`queryFactory::query Error: ${chalk.red(error)}`)
     }
   }
-  async injectQueryArguments(queryTemplate, queryParams, queryVariables){
-    let query = queryTemplate, queryOriginal = queryTemplate;
-    let queries = [];
+  injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
+    let query: string = queryTemplate, queryOriginal: string = queryTemplate;
+    let queries: Array<string> = [];
     // let queryOriginal = queryTemplate;
     try {
      for(let varObj of queryVariables){
@@ -50,11 +54,11 @@ class QueryBuilder {
        for(let [key, value] of Object.entries(varObj)) {
          // split object into key value pairs and iterate over for each key
           let regexp = new RegExp(`\\$${key}`, 'g');
-          let matchIncrementor = 0;
-          let newQuery = query.replace(regexp, (match, pos, original) => {
+          let matchIncrementor: number = 0;
+          let newQuery: string = query.replace(regexp, (match, pos, original) => {
            matchIncrementor++;
-           return (matchIncrementor == 2) ? value : match; 
-           //replace the second instance of the query. 
+           return (matchIncrementor == 2) ? value : match;
+           //replace the second instance of the query.
            // 1st instance = query parameter in query signature
            // 2nd instance (replace) = query argument
           });
@@ -65,18 +69,18 @@ class QueryBuilder {
         query = queryOriginal; //reset query to the original query passed into this function so that we can perform same parsing on next set of variables
        }
       return queries;
-    } catch(error) { 
+    } catch(error) {
       log(`Error: ${error}`);
     }
   }
-  async buildQueries() { 
-    let q = this.getQuery();
-    let qVars = this.getVariables();
-    try { 
-      let qParams = await this.extractQueryParams(q);
-      let qWithArguments = await this.injectQueryArguments(q, qParams, qVars);
+  async buildQueries() {
+    let q: string = this.getQuery();
+    let qVars: mixed = this.getVariables();
+    try {
+      let qParams: ?Array<string>  = await this.extractQueryParams(q);
+      let qWithArguments: Array<string> = await this.injectQueryArguments(q, qParams, qVars);
       return qWithArguments;
-    } catch(error) { 
+    } catch(error) {
       log(`buildQuery error: ${error}`);
     }
   }
