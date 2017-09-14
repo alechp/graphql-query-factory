@@ -105,6 +105,9 @@ Not available yet
 ### Todo
 > The TODO Sections represents smaller tasks that fit within the context of the Roadmap.
 
+##### Builder
+* [ ] Ensure that output is formatted as an array
+
 ##### Flow Types
 * [ ] Add Flow types to QueryBuilder
 * [ ] Add Flow types to QueryBatcher
