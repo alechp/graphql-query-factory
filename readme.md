@@ -132,3 +132,46 @@ Not available yet
 * [ ] Add repository field to Package
 * [ ] Update dist to /lib (makes more sense)
 * [ ] Add [apollo-codegen](https://github.com/apollographql/apollo-codegen) [apollo tutorial](http://dev.apollodata.com/react/using-with-types.html)
+
+
+
+-----------------------
+
+#### Current Flow Errors to Cleanup:
+```
+src/batcher.js:15
+ 15:   constructor(queries, concurrent) {
+                   ^^^^^^^ parameter `queries`. Missing annotation
+
+src/batcher.js:15
+ 15:   constructor(queries, concurrent) {
+                            ^^^^^^^^^^ parameter `concurrent`. Missing annotation
+
+src/builder.js:47
+ 47:   injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
+                                                                                                       ^^^^^^^^^^^^^ array type. This type is incompatible with an implicitly-returned undefined.
+
+src/builder.js:52
+ 52:      for(let varObj of queryVariables){
+          ^ property `@@iterator` of $Iterable. Property not found in
+ 52:      for(let varObj of queryVariables){
+                            ^^^^^^^^^^^^^^ mixed
+
+src/builder.js:60
+ 60:            return (matchIncrementor == 2) ? value : match;
+                                                 ^^^^^ mixed. This type is incompatible with
+291:     replace(searchValue: string | RegExp, replaceValue: string | (substring: string, ...args: Array<any>) => string): string;
+                                                                                                                  ^^^^^^ string. See lib: /private/tmp/flow/flowlib_8d4b9e8/core.js:291
+
+src/builder.js:81
+ 81:       let qWithArguments: Array<string> = await this.injectQueryArguments(q, qParams, qVars);
+                                                                                  ^^^^^^^ null. This type is incompatible with the expected param type of
+ 47:   injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
+                                                                ^^^^^^^^^^^^^ array type
+
+src/builder.js:81
+ 81:       let qWithArguments: Array<string> = await this.injectQueryArguments(q, qParams, qVars);
+                                                                                  ^^^^^^^ undefined. This type is incompatible with the expected param type of
+ 47:   injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
+                                                                ^^^^^^^^^^^^^ array type
+```

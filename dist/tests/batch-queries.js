@@ -81,18 +81,23 @@ const expectedSlice = [`mutation addMarkup($markup:String!, $raw: String!) {
   }
 }`];
 
-test('query array sliced correctly', t => {
+test('slice query array', t => {
   let q = new QueryBatcher(sampleQueries, 2);
-  let sliced = q.sliceQueryArray(sampleQueries, 2);
+  let sliced = q.sliceQueryArray();
   let target = sliced.target;
-  log(`${chalk.yellow('\nTarget\n-------------------------------------\n')} ${String(target)}`);
-  log(`${chalk.yellow('\nExpected Slice\n-------------------------------------\n')} ${String(expectedSlice)}`);
+  // log(`${chalk.yellow('\nTarget\n-------------------------------------\n')} ${String(target)}`);
+  // log(`${chalk.yellow('\nExpected Slice\n-------------------------------------\n')} ${String(expectedSlice)}`);
   t.is(String(target), String(expectedSlice));
 });
-test('queries build and execute', (() => {
+test('execute single query', (() => {
   var _ref = _asyncToGenerator(function* (t) {
-    let execution = yield batcher(sampleQueries, 2);
-    log(`${chalk.blue('\nExecution\n------------------------------------\n')}: ${execution}`);
+    let q = new QueryBatcher(sampleQueries, 2);
+    let sliced = q.sliceQueryArray();
+    let target = sliced.target;
+    for (let t in target) {
+      log(`t: ${t[0]}`);
+    }
+    log(`${chalk.blue('\nTarget\n------------------------------------\n')} ${target}`);
     t.pass();
   });
 

@@ -50,12 +50,13 @@ class QueryBatcher {
       }
     })();
   }
-  sliceQueryArray(arrayOfQueries, concurrentConnections) {
-    let original = arrayOfQueries;
-    let target = original.slice(0, concurrentConnections);
-    original = original.slice(concurrentConnections, original.length);
-    log(`${chalk.green('\nTarget\n---------------------------------\n')} ${target.toString()}`);
-    log(`${chalk.green('\nOriginal\n---------------------------------\n')} ${original.toString()}`);
+  sliceQueryArray() {
+    let original = this.getQueries();
+    let concurrent = this.getConcurrent();
+    let target = original.slice(0, concurrent);
+    original = original.slice(concurrent, original.length);
+    // log(`${chalk.green('\nTarget\n---------------------------------\n')} ${target.toString()}`);
+    // log(`${chalk.green('\nOriginal\n---------------------------------\n')} ${original.toString()}`);
     let queries = {
       target: [...target],
       original: [...original]
