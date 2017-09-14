@@ -89,12 +89,24 @@ test('slice query array', t => {
   // log(`${chalk.yellow('\nExpected Slice\n-------------------------------------\n')} ${String(expectedSlice)}`);
   t.is(String(target), String(expectedSlice));
 });
+
 test('execute single query', (() => {
   var _ref = _asyncToGenerator(function* (t) {
     let q = new QueryBatcher(sampleQueries, 2);
     let sliced = q.sliceQueryArray();
-    let target = String(sliced.target);
-    log(`${chalk.blue('\nExecuting Target\n------------------------------------\n')} ${target}`);
+    let stringified = String(sliced.target);
+    let target = sliced.target;
+    log(`Target vanilla: ${target}`);
+    log(`Target parsed: ${String(target)}`);
+    Object.entries(sliced).forEach(function ([key, val]) {
+      for (let query of val) {
+        q.queryExecute(String(query)).then(function (data) {
+          log(`Data from queryExecute inside batch-queries test: ${data}`);
+        });
+      }
+      log(`\nK[${key}]\t\tV[${typeof val}]\n\n`);
+    });
+    log(`${chalk.blue('\nExecuting Target\n------------------------------------\n')} ${stringified}`);
     t.pass();
   });
 

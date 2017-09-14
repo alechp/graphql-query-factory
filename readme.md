@@ -106,15 +106,21 @@ Not available yet
 > The TODO Sections represents smaller tasks that fit within the context of the Roadmap.
 
 ##### Builder
-* [ ] Ensure that output is formatted as an array
+* [x] Ensure that output is formatted as an array
 
+##### Batcher
+* [ ] tests
+  * [ ] execute single query
+  * [ ] execute all queries
+  * [ ]
 ##### Flow Types
-* [ ] Add Flow types to QueryBuilder
-* [ ] Add Flow types to QueryBatcher
+* [x] Add Flow types to QueryBuilder
+* [x] Add Flow types to QueryBatcher
+* [ ] Fix remaining Flow type errors (appended at README below)
 
 ##### Environment Variables
 * [x] Replace GCOOL variables with generic names
-* [ ] Update references in Travis build system (via travis website)
+* [x] Update references in Travis build system (via travis website)
 * [ ] Add information on readme about configuring env variables
 
 ##### Examples
@@ -124,15 +130,18 @@ Not available yet
 * [ ] Fix batcher-queries.js
   * [ ] Add documentation that demonstrates this usage
   * [ ] Add Ava test
+* [ ] Add React (CRA) example
+* [ ] Add simple node (CLI) example
 
 ##### Finishing Touches
 * [ ] Create walkthrough video on usage
 * [ ] Generate static site that explains
 * [ ] Post to #general in Graph.cool slack channel
 * [ ] Add repository field to Package
-* [ ] Update dist to /lib (makes more sense)
 * [ ] Add [apollo-codegen](https://github.com/apollographql/apollo-codegen) [apollo tutorial](http://dev.apollodata.com/react/using-with-types.html)
-
+* [ ] Add contribution section below
+* [ ] Remove Flow Errors below
+* [ ] Move all examples to one directory
 
 
 -----------------------

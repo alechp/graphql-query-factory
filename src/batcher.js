@@ -48,7 +48,7 @@ class QueryBatcher {
       return data;
     } catch(error) { log(`queryExecute failed. Error: ${error}`); }
   }
-  sliceQueryArray(){
+  sliceQueryArray(): mixed {
     let original: Array<string> = this.getQueries();
     let concurrent: number = this.getConcurrent();
     let target: Array<string> = original.slice(0, concurrent);
