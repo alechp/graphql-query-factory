@@ -32,14 +32,6 @@ class QueryBatcher {
     let queries = this.getQueries();
     let concurrent = this.getConcurrent();
     let sliced = this.sliceQueryArray(queries, concurrent);
-    Object.entries(sliced).forEach( ([key, val]) => { log(`K[${key}]\tV[${String(val)}]`) });
-    // for(let i = 0; i < sliced.length; i++) { log(`Sliced: ${sliced[i]}`)}
-    // try {
-    //   let sliceIndex: number = 0;
-    //   for(let [key: string, singleQueryFromArray: string] of sliced) {
-    //     log(`batcher.js/batchQueryExecute/: ${chalk.green(key)} : ${chalk.white(singleQueryFromArray)}`);
-    //   }
-    // } catch(error) { `${chalk.red('batchQueryExecute() failed to return promise.')} Error: ${error}` }
     return sliced;
   }
 
@@ -70,4 +62,7 @@ class QueryBatcher {
   }
 }
 
-module.exports = batcher;
+module.exports = {
+  batcher,
+  QueryBatcher
+}
