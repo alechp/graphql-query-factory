@@ -85,7 +85,7 @@ test('slice query array', t => {
   let q = new QueryBatcher(sampleQueries, 2);
   let sliced = q.sliceQueryArray();
   let target = sliced.target;
-  // log(`${chalk.yellow('\nTarget\n-------------------------------------\n')} ${String(target)}`);
+  log(`${chalk.yellow('\nSliced Array from Original Query Array\n-------------------------------------\n')} ${String(target)}`);
   // log(`${chalk.yellow('\nExpected Slice\n-------------------------------------\n')} ${String(expectedSlice)}`);
   t.is(String(target), String(expectedSlice));
 });
@@ -93,11 +93,8 @@ test('execute single query', (() => {
   var _ref = _asyncToGenerator(function* (t) {
     let q = new QueryBatcher(sampleQueries, 2);
     let sliced = q.sliceQueryArray();
-    let target = sliced.target;
-    for (let t in target) {
-      log(`t: ${t[0]}`);
-    }
-    log(`${chalk.blue('\nTarget\n------------------------------------\n')} ${target}`);
+    let target = String(sliced.target);
+    log(`${chalk.blue('\nExecuting Target\n------------------------------------\n')} ${target}`);
     t.pass();
   });
 

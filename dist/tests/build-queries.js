@@ -2,6 +2,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 const builder = require('../builder.js');
 const test = require('ava');
+const chalk = require('chalk');
 const log = console.log;
 
 const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
@@ -55,6 +56,7 @@ test('queries build', (() => {
   var _ref = _asyncToGenerator(function* (t) {
     let qs = yield builder(sampleMutation, queryVariablesArray);
     let queries = String(qs);
+    log(`${chalk.blue('\nQueries\n------------------------------------\n')} ${queries}`);
     t.is(queries, expectedQueries);
   });
 

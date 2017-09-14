@@ -1,5 +1,6 @@
 const builder = require('../builder.js');
 const test = require('ava');
+const chalk = require('chalk');
 const log = console.log;
 
 const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
@@ -56,5 +57,6 @@ const expectedQueries = `mutation addMarkup($markup:String!, $raw: String!) {
 test('queries build', async t => {
   let qs = await builder(sampleMutation, queryVariablesArray);
   let queries = String(qs);
+  log(`${chalk.blue('\nQueries\n------------------------------------\n')} ${queries}`);
   t.is(queries, expectedQueries)
 });
