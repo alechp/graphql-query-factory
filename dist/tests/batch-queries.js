@@ -96,6 +96,10 @@ test('execute single query', (() => {
     let sliced = q.sliceQueryArray();
     let stringified = String(sliced.target);
     let target = sliced.target;
+    for (let query of target) {
+      log(`Query inside execute single query: ${query}`);
+      yield q.queryExecute(query);
+    }
     log(`${chalk.yellow('\nExecuting Target\n------------------------------------\n')} ${stringified}`);
     t.pass();
   });
@@ -104,3 +108,5 @@ test('execute single query', (() => {
     return _ref.apply(this, arguments);
   };
 })());
+
+//

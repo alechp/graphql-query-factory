@@ -37,12 +37,12 @@ class QueryBatcher {
     return _asyncToGenerator(function* () {
       let endpoint = String(process && process.env && process.env.GQL_SIMPLE_ENDPOINT || 'https://api.graph.cool/simple/v1/cj6qq63wr0mrv0187fq2xdf0u');
       let token = String(process && process.env && process.env.GQL_AUTH_TOKEN || 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDM2MDY5NTUsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqNnFxNjN3cjBtcnYwMTg3ZnEyeGRmMHUiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqNnF3cmNhajB2bHIwMTg3eHg2N2ZvdW0ifQ.vN6R2A-lMv_gVPWwoZlf0JbkBNsX8YSpZUA_Xq9u_K4');
-      const client = new GraphQLClient(endpoint, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
       try {
+        const client = new GraphQLClient(endpoint, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         let data = yield client.request(query);
         return data;
       } catch (error) {
@@ -50,6 +50,7 @@ class QueryBatcher {
       }
     })();
   }
+
   sliceQueryArray() {
     let original = this.getQueries();
     let concurrent = this.getConcurrent();

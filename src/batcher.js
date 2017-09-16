@@ -38,16 +38,17 @@ class QueryBatcher {
   async queryExecute(query: string): mixed {
     let endpoint: string = String(process.env.GQL_SIMPLE_ENDPOINT)
     let token: string = String(process.env.GQL_AUTH_TOKEN)
-    const client = new GraphQLClient(endpoint, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
     try {
+      const client = new GraphQLClient(endpoint, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       let data: mixed = await client.request(query);
       return data;
     } catch(error) { log(`queryExecute failed. Error: ${error}`); }
   }
+
   sliceQueryArray(): mixed {
     let original: Array<string> = this.getQueries();
     let concurrent: number = this.getConcurrent();

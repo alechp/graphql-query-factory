@@ -5,7 +5,7 @@ const log = console.log;
 
 const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
   createContent(
-    markup: markup1
+      markup: markup1
     raw: raw1
   ) {
     markup
@@ -101,6 +101,26 @@ test('execute single query', async t => {
   let sliced: mixed = q.sliceQueryArray();
   let stringified: string = String(sliced.target);
   let target = sliced.target;
+  for(let query of target) {
+    log(`Query inside execute single query: ${query}`);
+    await q.queryExecute(query);
+  }
   log(`${chalk.yellow('\nExecuting Target\n------------------------------------\n')} ${stringified}`);
   t.pass();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

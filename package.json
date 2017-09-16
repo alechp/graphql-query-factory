@@ -23,6 +23,7 @@
   ],
   "author": "alechp <me@alechp.com>",
   "license": "ISC",
+  "repository": "https://github.com/alechp/graphql-query-factory.git",
   "dependencies": {
     "dotenv": "^4.0.0",
     "graphql-request": "^1.3.4"

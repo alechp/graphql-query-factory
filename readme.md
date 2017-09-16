@@ -107,7 +107,8 @@ Not available yet
 
 ##### Builder
 * [x] Ensure that output is formatted as an array
-
+* [ ] Add typechecking for variable types
+  * [ ] Wrap variables in strings
 ##### Batcher
 * [ ] tests
   * [ ] execute single query
@@ -138,7 +139,7 @@ Not available yet
 * [ ] Generate static site that explains
 * [ ] Post to #general in Graph.cool slack channel
 * [ ] Add repository field to Package
-* [ ] Add [apollo-codegen](https://github.com/apollographql/apollo-codegen) [apollo tutorial](http://dev.apollodata.com/react/using-with-types.html)
+* [ ] Add [apollo-codegen](https://github.com/apollographql/apollo-codegen) from [apollo tutorial](http://dev.apollodata.com/react/using-with-types.html)
 * [ ] Add contribution section below
 * [ ] Remove Flow Errors below
 * [ ] Move all examples to one directory
