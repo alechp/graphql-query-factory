@@ -107,12 +107,14 @@ Not available yet
 
 ##### Builder
 * [x] Ensure that output is formatted as an array
-
+* [ ] Add typechecking for variable types
+  * [ ] Wrap variables in strings
+* [ ] Automatically sort queries into queries or mutations
 ##### Batcher
 * [ ] tests
   * [ ] execute single query
   * [ ] execute all queries
-  * [ ]
+* [ ] Add type switcher for the query type
 ##### Flow Types
 * [x] Add Flow types to QueryBuilder
 * [x] Add Flow types to QueryBatcher
@@ -133,12 +135,19 @@ Not available yet
 * [ ] Add React (CRA) example
 * [ ] Add simple node (CLI) example
 
+
+##### Schema
+* [x] Update Graphcool instance to random staging
+  * [x] Update .env with correct EP & Auth
+  * [x] Update Travis
+  * [x] Update Schema
+
 ##### Finishing Touches
 * [ ] Create walkthrough video on usage
 * [ ] Generate static site that explains
 * [ ] Post to #general in Graph.cool slack channel
 * [ ] Add repository field to Package
-* [ ] Add [apollo-codegen](https://github.com/apollographql/apollo-codegen) [apollo tutorial](http://dev.apollodata.com/react/using-with-types.html)
+* [ ] Add [apollo-codegen](https://github.com/apollographql/apollo-codegen) from [apollo tutorial](http://dev.apollodata.com/react/using-with-types.html)
 * [ ] Add contribution section below
 * [ ] Remove Flow Errors below
 * [ ] Move all examples to one directory

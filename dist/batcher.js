@@ -1,7 +1,10 @@
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+"use strict";
 
-const { GraphQLClient } = require('graphql-request');
-const chalk = require('chalk');
+const fetch = require("node-fetch");
+global.fetch = fetch;
+const { ApolloClient, createNetworkInterface } = require("apollo-client");
+const gql = require("graphql-tag");
+const chalk = require("chalk");
 const log = console.log;
 
 function batcher(queries, concurrent) {
@@ -9,6 +12,7 @@ function batcher(queries, concurrent) {
   let executedBatchPromise = batcherHandle.batchQueryExecute();
   return executedBatchPromise;
 }
+
 class QueryBatcher {
   constructor(queries, concurrent) {
     this.queries = queries;
@@ -30,25 +34,39 @@ class QueryBatcher {
     let queries = this.getQueries();
     let concurrent = this.getConcurrent();
     let sliced = this.sliceQueryArray(queries, concurrent);
-    return sliced;
+    // let target = sliced.target;
+    // let original = sliced.original; //TODO: refactor "original" to "remaining"
+    // if (target !== undefined) {
+    //   for (let query in target) {
+    //     client.query({});
+    //   }
+    // } else {
+    //   return sliced;
+    // }
   }
 
-  queryExecute(query) {
-    return _asyncToGenerator(function* () {
-      let endpoint = String(process && process.env && process.env.GQL_SIMPLE_ENDPOINT || 'https://api.graph.cool/simple/v1/cj6qq63wr0mrv0187fq2xdf0u');
-      let token = String(process && process.env && process.env.GQL_AUTH_TOKEN || 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDM2MDY5NTUsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqNnFxNjN3cjBtcnYwMTg3ZnEyeGRmMHUiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqNnF3cmNhajB2bHIwMTg3eHg2N2ZvdW0ifQ.vN6R2A-lMv_gVPWwoZlf0JbkBNsX8YSpZUA_Xq9u_K4');
-      const client = new GraphQLClient(endpoint, {
-        headers: {
-          'Authorization': `Bearer ${token}`
+  async queryExecute(query) {
+    const client = new ApolloClient({
+      networkInterface: createNetworkInterface({
+        uri: process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj7rzel6x02b40143fhkupzik",
+        opts: {
+          headers: { Authorization: process && process.env && process.env.GQL_AUTH_TOKEN || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDU4NDkxNTIsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqN3J6ZWw2eDAyYjQwMTQzZmhrdXB6aWsiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqN3J6cGVidDAyeTQwMTU1cG9odnllNGgifQ.ZA2zNCIvzrkUrASxkuZbX26rvHfsbKHK2V53J5CwQi4" }
         }
-      });
-      try {
-        let data = yield client.request(query);
-        return data;
-      } catch (error) {
-        log(`queryExecute failed. Error: ${error}`);
-      }
-    })();
+      })
+    });
+    // let gqlQuery = this.strToGql(query);
+    // log(`gqlQuery: ${String(gqlQuery)}`);
+    let endpoint = String(process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj7rzel6x02b40143fhkupzik");
+    let token = String(process && process.env && process.env.GQL_AUTH_TOKEN || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDU4NDkxNTIsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqN3J6ZWw2eDAyYjQwMTQzZmhrdXB6aWsiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqN3J6cGVidDAyeTQwMTU1cG9odnllNGgifQ.ZA2zNCIvzrkUrASxkuZbX26rvHfsbKHK2V53J5CwQi4");
+    log(`${query}`);
+    log(`Endpoint: ${endpoint}`);
+    try {
+      let data = await client.mutate({ mutation: gql`${query}` });
+      log(`Data inside queryExecute: ${data}`);
+      return data;
+    } catch (error) {
+      log(`\n${chalk.red("queryExecute() in " + this.constructor.name + " failed.")} ${chalk.red(error)}\n`);
+    }
   }
   sliceQueryArray() {
     let original = this.getQueries();
