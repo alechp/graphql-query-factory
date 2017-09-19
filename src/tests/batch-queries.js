@@ -117,7 +117,17 @@ test("execute single query", async t => {
 });
 
 test("execute consecutive queries", async t => {
-  log(`Sup`);
+  //TODO
+  t.pass();
+});
+
+test("execute two types of queries <query> && <mutation>", async t => {
+  //TODO
+  t.pass();
+});
+
+test("execute four queries concurrently", async t => {
+  //TODO
   t.pass();
 });
 //
