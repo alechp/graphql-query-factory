@@ -5,7 +5,7 @@ const test = require("ava");
 const chalk = require("chalk");
 const log = console.log;
 
-const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
+const sampleQueries = [`mutation {
   createContent(
     markup: markup1
     raw: raw1
@@ -13,7 +13,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup2
     raw: raw2
@@ -21,7 +21,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup3
     raw: raw3
@@ -29,7 +29,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup4
     raw: raw4
@@ -37,7 +37,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup5
     raw: raw5
@@ -45,7 +45,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup6
     raw: raw6
@@ -53,7 +53,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup7
     raw: raw7
@@ -63,7 +63,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
   }
 }`];
 
-const expectedSlice = [`mutation addMarkup($markup:String!, $raw: String!) {
+const expectedSlice = [`mutation {
   createContent(
     markup: markup1
     raw: raw1
@@ -71,7 +71,7 @@ const expectedSlice = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup2
     raw: raw2
@@ -89,22 +89,36 @@ const singleQuery = `mutation {
     raw
   }
 }`;
+
+let createContentData = `{"createContent":{"markup":"markup1","raw":"raw1","__typename":"Content"}}`;
+
 test("slice query array", t => {
-  log(`${chalk.blue("\nSliced Array from Original Query Array\n-------------------------------------\n")}`);
   let q = new QueryBatcher(sampleQueries, 2);
   let sliced = q.sliceQueryArray();
   let target = sliced.target;
-  log(` ${String(chalk.grey(target))}`);
-  // log(`${chalk.yellow('\nExpected Slice\n-------------------------------------\n')} ${String(expectedSlice)}`);
   t.is(String(target), String(expectedSlice));
 });
 
 test("execute single query", async t => {
-  log(`${chalk.yellow("\nExecuting Target\n------------------------------------\n")} `);
   let q = new QueryBatcher();
   let res = await q.queryExecute(singleQuery);
+  let endpoint = String(process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj7rzel6x02b40143fhkupzik");
+  let token = String(process && process.env && process.env.GQL_AUTH_TOKEN || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDU4NDkxNTIsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqN3J6ZWw2eDAyYjQwMTQzZmhrdXB6aWsiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqN3J6cGVidDAyeTQwMTU1cG9odnllNGgifQ.ZA2zNCIvzrkUrASxkuZbX26rvHfsbKHK2V53J5CwQi4");
+  t.is(createContentData, JSON.stringify(res.data));
+});
 
+test("execute consecutive queries", async t => {
+  //TODO
   t.pass();
 });
 
+test("execute two types of queries <query> && <mutation>", async t => {
+  //TODO
+  t.pass();
+});
+
+test("execute four queries concurrently", async t => {
+  //TODO
+  t.pass();
+});
 //

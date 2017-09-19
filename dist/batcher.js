@@ -54,16 +54,8 @@ class QueryBatcher {
         }
       })
     });
-    // let gqlQuery = this.strToGql(query);
-    // log(`gqlQuery: ${String(gqlQuery)}`);
-    let endpoint = String(process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj7rzel6x02b40143fhkupzik");
-    let token = String(process && process.env && process.env.GQL_AUTH_TOKEN || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDU4NDkxNTIsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqN3J6ZWw2eDAyYjQwMTQzZmhrdXB6aWsiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqN3J6cGVidDAyeTQwMTU1cG9odnllNGgifQ.ZA2zNCIvzrkUrASxkuZbX26rvHfsbKHK2V53J5CwQi4");
-    log(`${query}`);
-    log(`Endpoint: ${endpoint}`);
     try {
-      let data = await client.mutate({ mutation: gql`${query}` });
-      log(`Data inside queryExecute: ${data}`);
-      return data;
+      return await client.mutate({ mutation: gql`${query}` });
     } catch (error) {
       log(`\n${chalk.red("queryExecute() in " + this.constructor.name + " failed.")} ${chalk.red(error)}\n`);
     }

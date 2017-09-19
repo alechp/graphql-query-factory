@@ -55,16 +55,8 @@ class QueryBatcher {
         }
       })
     });
-    // let gqlQuery = this.strToGql(query);
-    // log(`gqlQuery: ${String(gqlQuery)}`);
-    let endpoint: string = String(process.env.GQL_SIMPLE_ENDPOINT);
-    let token: string = String(process.env.GQL_AUTH_TOKEN);
-    log(`${query}`);
-    log(`Endpoint: ${endpoint}`);
     try {
-      let data = await client.mutate({ mutation: gql`${query}` });
-      log(`Data inside queryExecute: ${data}`);
-      return data;
+      return await client.mutate({ mutation: gql`${query}` });
     } catch (error) {
       log(
         `\n${chalk.red(

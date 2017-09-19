@@ -4,7 +4,7 @@ const chalk = require("chalk");
 const log = console.log;
 
 const sampleQueries = [
-  `mutation addMarkup($markup:String!, $raw: String!) {
+  `mutation {
   createContent(
     markup: markup1
     raw: raw1
@@ -13,7 +13,7 @@ const sampleQueries = [
     raw
   }
 }`,
-  `mutation addMarkup($markup:String!, $raw: String!) {
+  `mutation {
   createContent(
     markup: markup2
     raw: raw2
@@ -22,7 +22,7 @@ const sampleQueries = [
     raw
   }
 }`,
-  `mutation addMarkup($markup:String!, $raw: String!) {
+  `mutation {
   createContent(
     markup: markup3
     raw: raw3
@@ -31,7 +31,7 @@ const sampleQueries = [
     raw
   }
 }`,
-  `mutation addMarkup($markup:String!, $raw: String!) {
+  `mutation {
   createContent(
     markup: markup4
     raw: raw4
@@ -40,7 +40,7 @@ const sampleQueries = [
     raw
   }
 }`,
-  `mutation addMarkup($markup:String!, $raw: String!) {
+  `mutation {
   createContent(
     markup: markup5
     raw: raw5
@@ -49,7 +49,7 @@ const sampleQueries = [
     raw
   }
 }`,
-  `mutation addMarkup($markup:String!, $raw: String!) {
+  `mutation {
   createContent(
     markup: markup6
     raw: raw6
@@ -58,7 +58,7 @@ const sampleQueries = [
     raw
   }
 }`,
-  `mutation addMarkup($markup:String!, $raw: String!) {
+  `mutation {
   createContent(
     markup: markup7
     raw: raw7
@@ -70,7 +70,7 @@ const sampleQueries = [
 ];
 
 const expectedSlice = [
-  `mutation addMarkup($markup:String!, $raw: String!) {
+  `mutation {
   createContent(
     markup: markup1
     raw: raw1
@@ -79,7 +79,7 @@ const expectedSlice = [
     raw
   }
 }`,
-  `mutation addMarkup($markup:String!, $raw: String!) {
+  `mutation {
   createContent(
     markup: markup2
     raw: raw2
@@ -98,30 +98,36 @@ const singleQuery = `mutation {
     raw
   }
 }`;
+
+let createContentData = `{"createContent":{"markup":"markup1","raw":"raw1","__typename":"Content"}}`;
+
 test("slice query array", t => {
-  log(
-    `${chalk.blue(
-      "\nSliced Array from Original Query Array\n-------------------------------------\n"
-    )}`
-  );
   let q = new QueryBatcher(sampleQueries, 2);
   let sliced = q.sliceQueryArray();
   let target = sliced.target;
-  log(` ${String(chalk.grey(target))}`);
-  // log(`${chalk.yellow('\nExpected Slice\n-------------------------------------\n')} ${String(expectedSlice)}`);
   t.is(String(target), String(expectedSlice));
 });
 
 test("execute single query", async t => {
-  log(
-    `${chalk.yellow(
-      "\nExecuting Target\n------------------------------------\n"
-    )} `
-  );
   let q = new QueryBatcher();
   let res = await q.queryExecute(singleQuery);
+  let endpoint: string = String(process.env.GQL_SIMPLE_ENDPOINT);
+  let token: string = String(process.env.GQL_AUTH_TOKEN);
+  t.is(createContentData, JSON.stringify(res.data));
+});
 
+test("execute consecutive queries", async t => {
+  //TODO
   t.pass();
 });
 
+test("execute two types of queries <query> && <mutation>", async t => {
+  //TODO
+  t.pass();
+});
+
+test("execute four queries concurrently", async t => {
+  //TODO
+  t.pass();
+});
 //

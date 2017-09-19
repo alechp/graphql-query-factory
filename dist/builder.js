@@ -21,6 +21,12 @@ class QueryBuilder {
   setQuery(query) {
     this.query = query;
   }
+  getQueryParams() {
+    return this.params;
+  }
+  setQueryParams(params) {
+    this.params = params;
+  }
   getVariables() {
     return this.vars;
   }
@@ -28,60 +34,60 @@ class QueryBuilder {
     this.vars = vars;
   }
   extractQueryParams(query) {
-    /* We already have getVariables to define the variables being passed in explicitly.
-    The purpose of this function is to extract the parameters from the query call signature.
-    The regex used here works for single line and multiline call signatures alike.
-    e.g. query nameOfQuery($param: String!, $param2: String!) { }
-    e.g. query nameOfQuery($param: String!,
-                           $param2: String!) { }
-    */
-    let regex = /\$\w+(?=[\):])/g;
-    try {
-      let queryParams = query.match(regex);
-      return queryParams;
-    } catch (error) {
-      log(`queryFactory::query Error: ${chalk.red(error)}`);
-    }
-  }
-  injectQueryArguments(queryTemplate, queryParams, queryVariables) {
-    let query = queryTemplate,
-        queryOriginal = queryTemplate;
-    let queries = [];
-    // let queryOriginal = queryTemplate;
-    try {
-      for (let varObj of queryVariables) {
-        //grab first object...
-        for (let [key, value] of Object.entries(varObj)) {
-          // split object into key value pairs and iterate over for each key
-          let regexp = new RegExp(`\\$${key}`, "g");
-          let matchIncrementor = 0;
-          let newQuery = query.replace(regexp, (match, pos, original) => {
-            matchIncrementor++;
-            return matchIncrementor == 2 ? value : match;
-            //replace the second instance of the query.
-            // 1st instance = query parameter in query signature
-            // 2nd instance (replace) = query argument
-          });
-          query = newQuery;
-          // we asssign this query so that the next replace will already have the previous argument passed in
+    /*
+      In:
+      -----------------------------------------------
+      mutation {
+        createContent(
+          markup: $markup
+          raw: $raw
+        ) {
+          markup
+          raw
         }
-        queries.push(query); // begin building array of queries
-        query = queryOriginal; //reset query to the original query passed into this function so that we can perform same parsing on next set of variables
       }
-      return queries;
-    } catch (error) {
-      log(`Error: ${error}`);
+      Out:
+      -----------------------------------------------
+     [$markup, $raw]
+    */
+    let regex = /\$\w+/g;
+    // let regex = /\$\w+(?=[\):])/g;
+    let queryParams = query.match(regex);
+    if (queryParams !== null) {
+      this.setQueryParams(queryParams);
+    } else {
+      log(`${chalk.red("setQueryParams() failed in extractQueryParams() of " + this.constructor.name + " because queryParams were null")}`);
     }
   }
+  injectQueryArguments(template, params, variables) {
+    const queryOriginal = template;
+    let query = template;
+    let queries = [];
+    for (let v of variables) {
+      for (let [key, value] of Object.entries(v)) {
+        let regex = new RegExp(`\\$${key}`, "g");
+        let inc = 0;
+        let queryNew = query.replace(regex, (match, pos, orig) => {
+          inc++;
+          return inc == 1 ? value : match;
+        });
+        query = queryNew;
+      }
+      queries.push(query);
+      query = queryOriginal;
+    }
+    return queries;
+  }
+
   async buildQueries() {
     let q = this.getQuery();
-    let qVars = this.getVariables();
+    let v = this.getVariables();
     try {
-      let qParams = await this.extractQueryParams(q);
-      let qWithArguments = await this.injectQueryArguments(q, qParams, qVars);
-      return qWithArguments;
+      let p = await this.extractQueryParams(q);
+      let interpolatedQuery = await this.injectQueryArguments(q, p, v);
+      return interpolatedQuery;
     } catch (error) {
-      log(`buildQuery error: ${error}`);
+      log(`buildQueries() of ${this.constructor.name} failed because ${chalk.red(error)}`);
     }
   }
 }
