@@ -1,10 +1,18 @@
 # project: cj7rzel6x02b40143fhkupzik
-# version: 1
+# version: 5
 
 type User implements Node {
   id: ID! @isUnique
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+type Content implements Node {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  raw: String!
+  markup: String!
 }
 
 type File implements Node {
@@ -17,7 +25,3 @@ type File implements Node {
   updatedAt: DateTime!
   url: String! @isUnique
 }
-
-# type Tweet {
-#   text: String!
-# }

@@ -48,16 +48,16 @@ class QueryBatcher {
   async queryExecute(query) {
     const client = new ApolloClient({
       networkInterface: createNetworkInterface({
-        uri: process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj6qq63wr0mrv0187fq2xdf0u",
+        uri: process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj7rzel6x02b40143fhkupzik",
         opts: {
-          headers: { Authorization: process && process.env && process.env.GQL_AUTH_TOKEN || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDM2MDY5NTUsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqNnFxNjN3cjBtcnYwMTg3ZnEyeGRmMHUiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqNnF3cmNhajB2bHIwMTg3eHg2N2ZvdW0ifQ.vN6R2A-lMv_gVPWwoZlf0JbkBNsX8YSpZUA_Xq9u_K4" }
+          headers: { Authorization: process && process.env && process.env.GQL_AUTH_TOKEN || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDU4NDkxNTIsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqN3J6ZWw2eDAyYjQwMTQzZmhrdXB6aWsiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqN3J6cGVidDAyeTQwMTU1cG9odnllNGgifQ.ZA2zNCIvzrkUrASxkuZbX26rvHfsbKHK2V53J5CwQi4" }
         }
       })
     });
     // let gqlQuery = this.strToGql(query);
     // log(`gqlQuery: ${String(gqlQuery)}`);
-    let endpoint = String(process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj6qq63wr0mrv0187fq2xdf0u");
-    let token = String(process && process.env && process.env.GQL_AUTH_TOKEN || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDM2MDY5NTUsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqNnFxNjN3cjBtcnYwMTg3ZnEyeGRmMHUiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqNnF3cmNhajB2bHIwMTg3eHg2N2ZvdW0ifQ.vN6R2A-lMv_gVPWwoZlf0JbkBNsX8YSpZUA_Xq9u_K4");
+    let endpoint = String(process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj7rzel6x02b40143fhkupzik");
+    let token = String(process && process.env && process.env.GQL_AUTH_TOKEN || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDU4NDkxNTIsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqN3J6ZWw2eDAyYjQwMTQzZmhrdXB6aWsiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqN3J6cGVidDAyeTQwMTU1cG9odnllNGgifQ.ZA2zNCIvzrkUrASxkuZbX26rvHfsbKHK2V53J5CwQi4");
     log(`${query}`);
     log(`Endpoint: ${endpoint}`);
     try {

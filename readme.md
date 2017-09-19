@@ -137,10 +137,10 @@ Not available yet
 
 
 ##### Schema
-* [ ] Update Graphcool instance to random staging
-  * [ ] Update .env with correct EP & Auth
-  * [ ] Update Travis
-  * [ ] Update Schema
+* [x] Update Graphcool instance to random staging
+  * [x] Update .env with correct EP & Auth
+  * [x] Update Travis
+  * [x] Update Schema
 
 ##### Finishing Touches
 * [ ] Create walkthrough video on usage

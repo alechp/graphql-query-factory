@@ -80,7 +80,7 @@ const expectedSlice = [`mutation addMarkup($markup:String!, $raw: String!) {
     raw
   }
 }`];
-const singleQuery = `mutation addMarkup($markup:String!, $raw: String!) {
+const singleQuery = `mutation {
   createContent(
     markup: "markup1"
     raw: "raw1"
