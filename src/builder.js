@@ -57,10 +57,6 @@ class QueryBuilder {
     let queryParams = query.match(regex);
     if (queryParams !== null) {
       this.setQueryParams(queryParams);
-      log(
-        `Query params set: ${queryParams} ... Set globally as well: ${this
-          .params}`
-      );
     } else {
       log(
         `${chalk.red(

@@ -55,6 +55,6 @@ const expectedQueries = `mutation {
 test("queries build", async t => {
   let qs = await builder(sampleMutation, queryVariablesArray);
   let queries = String(qs);
-  log(`${chalk.blue("\nQueries\n------------------------------------\n")} ${chalk.grey(queries)}`);
+  // log(`${chalk.grey(queries)}`);
   t.is(queries, expectedQueries);
 });

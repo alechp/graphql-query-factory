@@ -89,22 +89,26 @@ const singleQuery = `mutation {
     raw
   }
 }`;
+
+let createContentData = `{"createContent":{"markup":"markup1","raw":"raw1","__typename":"Content"}}`;
+
 test("slice query array", t => {
-  log(`${chalk.blue("\nSliced Array from Original Query Array\n-------------------------------------\n")}`);
   let q = new QueryBatcher(sampleQueries, 2);
   let sliced = q.sliceQueryArray();
   let target = sliced.target;
-  log(` ${String(chalk.grey(target))}`);
-  // log(`${chalk.yellow('\nExpected Slice\n-------------------------------------\n')} ${String(expectedSlice)}`);
   t.is(String(target), String(expectedSlice));
 });
 
 test("execute single query", async t => {
-  log(`${chalk.yellow("\nExecuting Target\n------------------------------------\n")} `);
   let q = new QueryBatcher();
   let res = await q.queryExecute(singleQuery);
-
-  t.pass();
+  let endpoint = String(process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj7rzel6x02b40143fhkupzik");
+  let token = String(process && process.env && process.env.GQL_AUTH_TOKEN || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDU4NDkxNTIsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqN3J6ZWw2eDAyYjQwMTQzZmhrdXB6aWsiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqN3J6cGVidDAyeTQwMTU1cG9odnllNGgifQ.ZA2zNCIvzrkUrASxkuZbX26rvHfsbKHK2V53J5CwQi4");
+  t.is(createContentData, JSON.stringify(res.data));
 });
 
+test("execute consecutive queries", async t => {
+  log(`Sup`);
+  t.pass();
+});
 //

@@ -98,30 +98,26 @@ const singleQuery = `mutation {
     raw
   }
 }`;
+
+let createContentData = `{"createContent":{"markup":"markup1","raw":"raw1","__typename":"Content"}}`;
+
 test("slice query array", t => {
-  log(
-    `${chalk.blue(
-      "\nSliced Array from Original Query Array\n-------------------------------------\n"
-    )}`
-  );
   let q = new QueryBatcher(sampleQueries, 2);
   let sliced = q.sliceQueryArray();
   let target = sliced.target;
-  log(` ${String(chalk.grey(target))}`);
-  // log(`${chalk.yellow('\nExpected Slice\n-------------------------------------\n')} ${String(expectedSlice)}`);
   t.is(String(target), String(expectedSlice));
 });
 
 test("execute single query", async t => {
-  log(
-    `${chalk.yellow(
-      "\nExecuting Target\n------------------------------------\n"
-    )} `
-  );
   let q = new QueryBatcher();
   let res = await q.queryExecute(singleQuery);
-
-  t.pass();
+  let endpoint: string = String(process.env.GQL_SIMPLE_ENDPOINT);
+  let token: string = String(process.env.GQL_AUTH_TOKEN);
+  t.is(createContentData, JSON.stringify(res.data));
 });
 
+test("execute consecutive queries", async t => {
+  log(`Sup`);
+  t.pass();
+});
 //
