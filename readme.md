@@ -10,7 +10,8 @@
 * [x] QueryBuilder - Builds individual query strings based on the number of variable combinations you have.
 * [ ] QueryBatcher - Executes the entire array of GraphQL Query Strings.
 * [x] Ava Tests
-* [x] Flow Integration
+* [x] Flow
+* [x] Babel
 * [x] CI status bar
 
 ## Getting Started
@@ -31,7 +32,7 @@ QueryBuilder - [Sample Project](https://github.com/alechp/graphql-query-factory/
 const { builder } = require('graphql-query-factory');
 const log = console.log;
 
-const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
+const sampleMutation = `mutation {
     createContent(
       markup: $markup
       raw: $raw
@@ -65,7 +66,7 @@ const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
 ```
 QueryBuilder Output:
 ```js
-mutation addMarkup($markup:String!, $raw: String!) {
+mutation {
     createContent(
       markup: markup1
       raw: raw1
@@ -74,7 +75,7 @@ mutation addMarkup($markup:String!, $raw: String!) {
       raw
     }
   }
-mutation addMarkup($markup:String!, $raw: String!) {
+mutation {
     createContent(
       markup: markup2
       raw: raw2
@@ -83,7 +84,7 @@ mutation addMarkup($markup:String!, $raw: String!) {
       raw
     }
   }
-mutation addMarkup($markup:String!, $raw: String!) {
+mutation {
     createContent(
       markup: markup3
       raw: raw3
@@ -101,95 +102,3 @@ Not available yet
 ```
 
 --------------------------------
-
-### Todo
-> The TODO Sections represents smaller tasks that fit within the context of the Roadmap.
-
-##### Builder
-* [x] Ensure that output is formatted as an array
-* [ ] Add typechecking for variable types
-  * [ ] Wrap variables in strings
-* [ ] Automatically sort queries into queries or mutations
-##### Batcher
-* [ ] tests
-  * [ ] execute single query
-  * [ ] execute all queries
-* [ ] Add type switcher for the query type
-##### Flow Types
-* [x] Add Flow types to QueryBuilder
-* [x] Add Flow types to QueryBatcher
-* [ ] Fix remaining Flow type errors (appended at README below)
-
-##### Environment Variables
-* [x] Replace GCOOL variables with generic names
-* [x] Update references in Travis build system (via travis website)
-* [ ] Add information on readme about configuring env variables
-
-##### Examples
-* [ ] Add factory-queries.js sample
-  * [ ] Add documentation that demonstrates this usage
-  * [ ] Add Ava test
-* [ ] Fix batcher-queries.js
-  * [ ] Add documentation that demonstrates this usage
-  * [ ] Add Ava test
-* [ ] Add React (CRA) example
-* [ ] Add simple node (CLI) example
-
-
-##### Schema
-* [x] Update Graphcool instance to random staging
-  * [x] Update .env with correct EP & Auth
-  * [x] Update Travis
-  * [x] Update Schema
-
-##### Finishing Touches
-* [ ] Create walkthrough video on usage
-* [ ] Generate static site that explains
-* [ ] Post to #general in Graph.cool slack channel
-* [ ] Add repository field to Package
-* [ ] Add [apollo-codegen](https://github.com/apollographql/apollo-codegen) from [apollo tutorial](http://dev.apollodata.com/react/using-with-types.html)
-* [ ] Add contribution section below
-* [ ] Remove Flow Errors below
-* [ ] Move all examples to one directory
-
-
------------------------
-
-#### Current Flow Errors to Cleanup:
-```
-src/batcher.js:15
- 15:   constructor(queries, concurrent) {
-                   ^^^^^^^ parameter `queries`. Missing annotation
-
-src/batcher.js:15
- 15:   constructor(queries, concurrent) {
-                            ^^^^^^^^^^ parameter `concurrent`. Missing annotation
-
-src/builder.js:47
- 47:   injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
-                                                                                                       ^^^^^^^^^^^^^ array type. This type is incompatible with an implicitly-returned undefined.
-
-src/builder.js:52
- 52:      for(let varObj of queryVariables){
-          ^ property `@@iterator` of $Iterable. Property not found in
- 52:      for(let varObj of queryVariables){
-                            ^^^^^^^^^^^^^^ mixed
-
-src/builder.js:60
- 60:            return (matchIncrementor == 2) ? value : match;
-                                                 ^^^^^ mixed. This type is incompatible with
-291:     replace(searchValue: string | RegExp, replaceValue: string | (substring: string, ...args: Array<any>) => string): string;
-                                                                                                                  ^^^^^^ string. See lib: /private/tmp/flow/flowlib_8d4b9e8/core.js:291
-
-src/builder.js:81
- 81:       let qWithArguments: Array<string> = await this.injectQueryArguments(q, qParams, qVars);
-                                                                                  ^^^^^^^ null. This type is incompatible with the expected param type of
- 47:   injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
-                                                                ^^^^^^^^^^^^^ array type
-
-src/builder.js:81
- 81:       let qWithArguments: Array<string> = await this.injectQueryArguments(q, qParams, qVars);
-                                                                                  ^^^^^^^ undefined. This type is incompatible with the expected param type of
- 47:   injectQueryArguments(queryTemplate: string, queryParams: Array<string>, queryVariables: mixed): Array<string>{
-                                                                ^^^^^^^^^^^^^ array type
-```
