@@ -109,11 +109,12 @@ Not available yet
 * [x] Ensure that output is formatted as an array
 * [ ] Add typechecking for variable types
   * [ ] Wrap variables in strings
+* [ ] Automatically sort queries into queries or mutations
 ##### Batcher
 * [ ] tests
   * [ ] execute single query
   * [ ] execute all queries
-  * [ ]
+* [ ] Add type switcher for the query type
 ##### Flow Types
 * [x] Add Flow types to QueryBuilder
 * [x] Add Flow types to QueryBatcher
@@ -133,6 +134,13 @@ Not available yet
   * [ ] Add Ava test
 * [ ] Add React (CRA) example
 * [ ] Add simple node (CLI) example
+
+
+##### Schema
+* [ ] Update Graphcool instance to random staging
+  * [ ] Update .env with correct EP & Auth
+  * [ ] Update Travis
+  * [ ] Update Schema
 
 ##### Finishing Touches
 * [ ] Create walkthrough video on usage

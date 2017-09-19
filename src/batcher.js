@@ -1,7 +1,9 @@
 //@flow
-
-const { GraphQLClient } = require('graphql-request')
-const chalk = require('chalk');
+const fetch = require("node-fetch");
+global.fetch = fetch;
+const { ApolloClient, createNetworkInterface } = require("apollo-client");
+const gql = require("graphql-tag");
+const chalk = require("chalk");
 const log = console.log;
 
 function batcher(queries: Array<string>, concurrent: number): mixed {
@@ -9,6 +11,7 @@ function batcher(queries: Array<string>, concurrent: number): mixed {
   let executedBatchPromise = batcherHandle.batchQueryExecute();
   return executedBatchPromise;
 }
+
 class QueryBatcher {
   queries: Array<string>;
   concurrent: number;
@@ -16,39 +19,60 @@ class QueryBatcher {
     this.queries = queries;
     this.concurrent = concurrent;
   }
-  getQueries(){
+  getQueries() {
     return this.queries;
   }
   setQueries(arrayOfQueryStrings: Array<string>) {
     this.queries = arrayOfQueryStrings;
   }
-  getConcurrent(){
+  getConcurrent() {
     return this.concurrent;
   }
-  setConcurrent(numberOfConcurrentConnections: number){
-    this.concurrent=numberOfConcurrentConnections;
+  setConcurrent(numberOfConcurrentConnections: number) {
+    this.concurrent = numberOfConcurrentConnections;
   }
   batchQueryExecute(): mixed {
     let queries = this.getQueries();
     let concurrent = this.getConcurrent();
     let sliced = this.sliceQueryArray(queries, concurrent);
-    return sliced;
+    // let target = sliced.target;
+    // let original = sliced.original; //TODO: refactor "original" to "remaining"
+    // if (target !== undefined) {
+    //   for (let query in target) {
+    //     client.query({});
+    //   }
+    // } else {
+    //   return sliced;
+    // }
   }
 
   async queryExecute(query: string): mixed {
-    let endpoint: string = String(process.env.GQL_SIMPLE_ENDPOINT)
-    let token: string = String(process.env.GQL_AUTH_TOKEN)
-    try {
-      const client = new GraphQLClient(endpoint, {
-        headers: {
-          'Authorization': `Bearer ${token}`
+    const client = new ApolloClient({
+      networkInterface: createNetworkInterface({
+        uri: process.env.GQL_SIMPLE_ENDPOINT,
+        opts: {
+          headers: { Authorization: process.env.GQL_AUTH_TOKEN }
         }
-      });
-      let data: mixed = await client.request(query);
+      })
+    });
+    // let gqlQuery = this.strToGql(query);
+    // log(`gqlQuery: ${String(gqlQuery)}`);
+    let endpoint: string = String(process.env.GQL_SIMPLE_ENDPOINT);
+    let token: string = String(process.env.GQL_AUTH_TOKEN);
+    log(`${query}`);
+    log(`Endpoint: ${endpoint}`);
+    try {
+      let data = await client.mutate({ mutation: gql`${query}` });
+      log(`Data inside queryExecute: ${data}`);
       return data;
-    } catch(error) { log(`queryExecute failed. Error: ${error}`); }
+    } catch (error) {
+      log(
+        `\n${chalk.red(
+          "queryExecute() in " + this.constructor.name + " failed."
+        )} ${chalk.red(error)}\n`
+      );
+    }
   }
-
   sliceQueryArray(): mixed {
     let original: Array<string> = this.getQueries();
     let concurrent: number = this.getConcurrent();
@@ -57,9 +81,9 @@ class QueryBatcher {
     // log(`${chalk.green('\nTarget\n---------------------------------\n')} ${target.toString()}`);
     // log(`${chalk.green('\nOriginal\n---------------------------------\n')} ${original.toString()}`);
     let queries = {
-        target: [...target],
-        original: [...original]
-    }
+      target: [...target],
+      original: [...original]
+    };
     return queries;
   }
 }
@@ -67,4 +91,4 @@ class QueryBatcher {
 module.exports = {
   batcher,
   QueryBatcher
-}
+};

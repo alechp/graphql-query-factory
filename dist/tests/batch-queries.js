@@ -1,8 +1,8 @@
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+"use strict";
 
-const { QueryBatcher, batcher } = require('../batcher.js');
-const test = require('ava');
-const chalk = require('chalk');
+const { QueryBatcher, batcher } = require("../batcher.js");
+const test = require("ava");
+const chalk = require("chalk");
 const log = console.log;
 
 const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
@@ -80,33 +80,31 @@ const expectedSlice = [`mutation addMarkup($markup:String!, $raw: String!) {
     raw
   }
 }`];
-
-test('slice query array', t => {
+const singleQuery = `mutation addMarkup($markup:String!, $raw: String!) {
+  createContent(
+    markup: "markup1"
+    raw: "raw1"
+  ) {
+    markup
+    raw
+  }
+}`;
+test("slice query array", t => {
+  log(`${chalk.blue("\nSliced Array from Original Query Array\n-------------------------------------\n")}`);
   let q = new QueryBatcher(sampleQueries, 2);
   let sliced = q.sliceQueryArray();
   let target = sliced.target;
-  log(`${chalk.blue('\nSliced Array from Original Query Array\n-------------------------------------\n')} ${String(chalk.grey(target))}`);
+  log(` ${String(chalk.grey(target))}`);
   // log(`${chalk.yellow('\nExpected Slice\n-------------------------------------\n')} ${String(expectedSlice)}`);
   t.is(String(target), String(expectedSlice));
 });
 
-test('execute single query', (() => {
-  var _ref = _asyncToGenerator(function* (t) {
-    let q = new QueryBatcher(sampleQueries, 2);
-    let sliced = q.sliceQueryArray();
-    let stringified = String(sliced.target);
-    let target = sliced.target;
-    for (let query of target) {
-      log(`Query inside execute single query: ${query}`);
-      yield q.queryExecute(query);
-    }
-    log(`${chalk.yellow('\nExecuting Target\n------------------------------------\n')} ${stringified}`);
-    t.pass();
-  });
+test("execute single query", async t => {
+  log(`${chalk.yellow("\nExecuting Target\n------------------------------------\n")} `);
+  let q = new QueryBatcher();
+  let res = await q.queryExecute(singleQuery);
 
-  return function (_x) {
-    return _ref.apply(this, arguments);
-  };
-})());
+  t.pass();
+});
 
 //

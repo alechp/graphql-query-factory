@@ -1,4 +1,14 @@
 {
-  "presets": ["es2017", "flow"],
+  "presets": [
+    "flow",
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ],
   "plugins": ["transform-flow-strip-types", "inline-dotenv"]
 }
