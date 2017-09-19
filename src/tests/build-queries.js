@@ -3,7 +3,7 @@ const test = require("ava");
 const chalk = require("chalk");
 const log = console.log;
 
-const sampleMutation = `mutation addMarkup($markup:String!, $raw: String!) {
+const sampleMutation = `mutation {
   createContent(
     markup: $markup
     raw: $raw
@@ -28,7 +28,7 @@ const queryVariablesArray = [
   }
 ];
 
-const expectedQueries = `mutation addMarkup($markup:String!, $raw: String!) {
+const expectedQueries = `mutation {
   createContent(
     markup: markup1
     raw: raw1
@@ -36,7 +36,7 @@ const expectedQueries = `mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-},mutation addMarkup($markup:String!, $raw: String!) {
+},mutation {
   createContent(
     markup: markup2
     raw: raw2
@@ -44,7 +44,7 @@ const expectedQueries = `mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-},mutation addMarkup($markup:String!, $raw: String!) {
+},mutation {
   createContent(
     markup: markup3
     raw: raw3
