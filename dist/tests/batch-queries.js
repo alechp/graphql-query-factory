@@ -5,7 +5,7 @@ const test = require("ava");
 const chalk = require("chalk");
 const log = console.log;
 
-const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
+const sampleQueries = [`mutation {
   createContent(
     markup: markup1
     raw: raw1
@@ -13,7 +13,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup2
     raw: raw2
@@ -21,7 +21,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup3
     raw: raw3
@@ -29,7 +29,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup4
     raw: raw4
@@ -37,7 +37,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup5
     raw: raw5
@@ -45,7 +45,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup6
     raw: raw6
@@ -53,7 +53,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup7
     raw: raw7
@@ -63,7 +63,7 @@ const sampleQueries = [`mutation addMarkup($markup:String!, $raw: String!) {
   }
 }`];
 
-const expectedSlice = [`mutation addMarkup($markup:String!, $raw: String!) {
+const expectedSlice = [`mutation {
   createContent(
     markup: markup1
     raw: raw1
@@ -71,7 +71,7 @@ const expectedSlice = [`mutation addMarkup($markup:String!, $raw: String!) {
     markup
     raw
   }
-}`, `mutation addMarkup($markup:String!, $raw: String!) {
+}`, `mutation {
   createContent(
     markup: markup2
     raw: raw2
