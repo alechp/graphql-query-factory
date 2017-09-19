@@ -6,13 +6,15 @@
 
 
 ### Roadmap
-* [ ] QueryFactory - Combines Builder & Batcher
-* [x] QueryBuilder - Builds individual query strings based on the number of variable combinations you have.
-* [ ] QueryBatcher - Executes the entire array of GraphQL Query Strings.
-* [x] Ava Tests
-* [x] Flow
-* [x] Babel
-* [x] CI status bar
+| Status | Summary | Comment |
+|:-------|:---------|:--------|
+| ☐ | QueryFactory | Combines Builder & Batcher |
+| ✓ | QueryBuilder | Builds individual query strings based on the number of variable combinations you have. |
+| ☐ | QueryBatcher | Executes the entire array of GraphQL Query Strings. |
+| ✓ | Ava | |
+| ☐ | Flow | Dependencies added but not finished |
+| ✓ | Babel | |
+| ✓ | TravisCI | [https://travis-ci.org/alechp/graphql-query-factory](https://travis-ci.org/alechp/graphql-query-factory)|
 
 ## Getting Started
 #### Installation

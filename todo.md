@@ -5,16 +5,15 @@
 * [x] Ensure that output is formatted as an array
 ##### Batcher
 * [ ] Add type switcher for the query type
-##### Flow Types
-* [x] Add Flow types to QueryBuilder
-* [x] Add Flow types to QueryBatcher
-* [ ] Fix remaining Flow type errors
 
 ##### Environment Variables
 * [x] Replace GCOOL variables with generic names
 * [x] Update references in Travis build system (via travis website)
-* [ ] Add information on readme about configuring env variables
 
+##### Flow
+* [ ] Populate .flowconfig
+* [ ] Finish weeding out type errors
+* [ ] Add strong typing throughout remainder of project
 ##### Examples & Tests
 * [ ] Add factory-queries.js sample
 * [ ] Fix batcher-queries.js
@@ -44,9 +43,6 @@
 * [ ] Create walkthrough video on usage
 * [ ] Generate static site that explains
 * [ ] Post to #general in Graph.cool slack channel
-* [ ] Add repository field to Package
+* [x] Add repository field to Package
 * [ ] Add [apollo-codegen](https://github.com/apollographql/apollo-codegen) from [apollo tutorial](http://dev.apollodata.com/react/using-with-types.html)
 * [ ] Add contribution section below
-* [ ] Remove Flow Errors below
-
--
