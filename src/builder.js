@@ -58,8 +58,8 @@ class QueryBuilder {
     if (queryParams !== null) {
       this.setQueryParams(queryParams);
       log(
-        `Query params set: ${queryParams} ... Set globally as well: ${() =>
-          getQueryParams()}`
+        `Query params set: ${queryParams} ... Set globally as well: ${this
+          .params}`
       );
     } else {
       log(
@@ -94,44 +94,7 @@ class QueryBuilder {
     }
     return queries;
   }
-  //This version of injectQueryArguments expects there to be a call signature in the mutation
-  // injectQueryArguments(
-  //   queryTemplate: string,
-  //   queryParams: Array<string>,
-  //   queryVariables: mixed
-  // ): Array<string> {
-  //   let query: string = queryTemplate,
-  //     queryOriginal: string = queryTemplate;
-  //   let queries: Array<string> = [];
-  //   // let queryOriginal = queryTemplate;
-  //   try {
-  //     for (let varObj of queryVariables) {
-  //       //grab first object...
-  //       for (let [key, value] of Object.entries(varObj)) {
-  //         // split object into key value pairs and iterate over for each key
-  //         let regexp = new RegExp(`\\$${key}`, "g");
-  //         let matchIncrementor: number = 0;
-  //         let newQuery: string = query.replace(
-  //           regexp,
-  //           (match, pos, original) => {
-  //             matchIncrementor++;
-  //             return matchIncrementor == 2 ? value : match;
-  //             //replace the second instance of the query.
-  //             // 1st instance = query parameter in query signature
-  //             // 2nd instance (replace) = query argument
-  //           }
-  //         );
-  //         query = newQuery;
-  //         // we asssign this query so that the next replace will already have the previous argument passed in
-  //       }
-  //       queries.push(query); // begin building array of queries
-  //       query = queryOriginal; //reset query to the original query passed into this function so that we can perform same parsing on next set of variables
-  //     }
-  //     return queries;
-  //   } catch (error) {
-  //     log(`Error: ${error}`);
-  //   }
-  // }
+
   async buildQueries() {
     let q: string = this.getQuery();
     let v: mixed = this.getVariables();
