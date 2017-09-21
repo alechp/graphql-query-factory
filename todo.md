@@ -22,9 +22,10 @@
     * [x] `build-queries`/queries build
     * [x] `batch-queries`/slice query array
     * [x] `batch-queries`/execute single query
-    * [ ] `batch-queries`/execute consecutive queries
+    * [ ] `batch-queries`/execute queries in proper order
     * [ ] `batch-queries`/execute two types of queries
-    * [ ] `batch-queries`/execute four queries concurrently
+    * [x] `batch-queries`/execute four queries concurrently
+    * [ ] `factory-queries`/build and batch queries
 * [ ] Add React (CRA) example
 * [ ] Add simple node (CLI) example
 * [ ] Move all examples to one directory
