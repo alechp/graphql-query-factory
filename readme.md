@@ -15,7 +15,7 @@
 | ☐ | Flow | Dependencies added but not finished |
 | ✓ | Babel | |
 | ✓ | TravisCI | [https://travis-ci.org/alechp/graphql-query-factory](https://travis-ci.org/alechp/graphql-query-factory)|
-
+| ☐ | Webpack | Babel has been useful for testing. Going to convert to webpack to enable uglification, tree-shaking, etc. |  
 ## Getting Started
 #### Installation
 ```bash
