@@ -2,9 +2,11 @@
 ![CI Build Status Bar](https://travis-ci.org/alechp/graphql-query-factory.svg?branch=flow)
 
 ## Status
-> You can use QueryBuilder today. QueryBuilder takes an array of variable objects and injects them into your GraphQL query.
-
-
+> * QueryBuilder available.
+> * QueryBatcher is close.
+> * Broke sample into its own repo: [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
+> * Fixed some breaking changes in last version that prevented module from being used. This was a result of main pointing to /index instead of src/index. Should be fixed now.
+ 
 ### Roadmap
 | Status | Summary | Comment |
 |:-------|:---------|:--------|
@@ -29,12 +31,12 @@ Not available yet
 ```
 --------------------------------
 
-QueryBuilder - [Sample Project](https://github.com/alechp/graphql-query-factory/tree/master/graphql-query-factory-test-project)
+##### QueryBuilder - [Sample Project](https://github.com/alechp/graphql-query-factory/tree/master/graphql-query-factory-test-project)
 ```js
 const { builder } = require('graphql-query-factory');
 const log = console.log;
 
-const sampleMutation = `mutation {
+const mutationTemplate = `mutation {
     createContent(
       markup: $markup
       raw: $raw
@@ -44,7 +46,7 @@ const sampleMutation = `mutation {
     }
   }`;
 
-  const queryVariablesArray = [
+  const mutationVariables = [
     {
       "markup": "markup1",
       "raw": "raw1"
@@ -59,15 +61,11 @@ const sampleMutation = `mutation {
     }
   ];
 
-  let queries = builder(sampleMutation, queryVariablesArray)
-                .then( data =>
-                    data.map(d => log(d))
-                )
-                .catch(err => log(`QueryBuilder failed. Error: ${err}`));
+let queries = builder(mutationTemplate, mutationVariables);
 
 ```
 QueryBuilder Output:
-```js
+```graphql
 mutation {
     createContent(
       markup: markup1
@@ -108,5 +106,5 @@ Not available yet
 #### Environment Variables
 
 When using `QueryBatcher()` or `batcher` you must include two environment variables:
-* `GQL_SIMPLE_ENDPOINT`: 
+* `GQL_SIMPLE_ENDPOINT`
 * `GQL_AUTH_TOKEN`

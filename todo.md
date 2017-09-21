@@ -32,7 +32,11 @@
 * [ ] Implement lerna
   * [ ] Update `graphql-query-factory-test` to utilize remote
   * [ ] Split `...-test` local implementation test (for local) into separate file
-
+  * [ ]
+##### Docs
+* [ ] Update docs to represent changes
+* [ ] Publish link to new test project
+* [ ] Rename the "query" helper methods to be agnostic (e.g. "Request", "Template" or something along those lines... confusing when talking about GraphQL's query and mutation paradigm)
 
 ##### Schema
 * [x] Update Graphcool instance to random staging
