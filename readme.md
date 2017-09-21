@@ -35,7 +35,7 @@ Not available yet
 ```
 --------------------------------
 
-##### QueryBuilder - [Sample Project](https://github.com/alechp/graphql-query-factory/tree/master/graphql-query-factory-test-project)
+##### QueryBuilder - [Sample Project](https://github.com/alechp/graphql-query-factory-test)
 ```js
 const { builder } = require('graphql-query-factory');
 const log = console.log;
@@ -68,6 +68,9 @@ const mutationTemplate = `mutation {
 let queries = builder(mutationTemplate, mutationVariables);
 
 ```
+
+> NOTE: I will be adding a promisified verison of the builder back in the future.
+
 QueryBuilder Output:
 ```graphql
 mutation {
