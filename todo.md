@@ -32,7 +32,11 @@
   * [ ] Update `graphql-query-factory-test` to utilize remote
   * [ ] Split `...-test` local implementation test (for local) into separate file
 
-
+##### Webpack
+* [ ] Create baseline config
+* [ ] Update NPM scripts to match webpack config
+* [ ] Add [webpack-strip](https://www.npmjs.com/package/webpack-strip) for comment cleanup in prod
+* [ ] 
 ##### Schema
 * [x] Update Graphcool instance to random staging
   * [x] Update .env with correct EP & Auth

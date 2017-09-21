@@ -119,6 +119,9 @@ test("execute two types of queries <query> && <mutation>", async t => {
 
 test("execute four queries concurrently", async t => {
   //TODO
+  let q = new QueryBatcher();
+  q.setQueries(sampleQueries);
+  log((await q.batchQueryExecute()));
   t.pass();
 });
 //

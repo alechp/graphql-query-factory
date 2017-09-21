@@ -15,7 +15,16 @@ function batcher(queries: Array<string>, concurrent: number): mixed {
 class QueryBatcher {
   queries: Array<string>;
   concurrent: number;
-  constructor(queries, concurrent) {
+  constructor(queries, concurrent = 4) {
+    if (typeof queries === "undefined") {
+      log(
+        `${chalk.grey(
+          "Queries were never set in constructor. Remember to set them manually via " +
+            this.constructor.name +
+            ".setQueries(arr: Array<string>)"
+        )}`
+      );
+    }
     this.queries = queries;
     this.concurrent = concurrent;
   }
@@ -34,8 +43,10 @@ class QueryBatcher {
   batchQueryExecute(): mixed {
     let queries = this.getQueries();
     let concurrent = this.getConcurrent();
+    log(`Con: ${concurrent}`);
     let sliced = this.sliceQueryArray(queries, concurrent);
-    // let target = sliced.target;
+    let target = sliced.target;
+    return target;
     // let original = sliced.original; //TODO: refactor "original" to "remaining"
     // if (target !== undefined) {
     //   for (let query in target) {
@@ -65,6 +76,7 @@ class QueryBatcher {
       );
     }
   }
+
   sliceQueryArray(): mixed {
     let original: Array<string> = this.getQueries();
     let concurrent: number = this.getConcurrent();
