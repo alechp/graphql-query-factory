@@ -1,9 +1,11 @@
-'use strict';
+"use strict";
 
-const builder = require('./builder.js');
-const batcher = require('./batcher.js');
+const { QueryBuilder, builder } = require("./builder.js");
+const { QueryBatcher, batcher } = require("./batcher.js");
 
 module.exports = {
+  QueryBuilder,
   builder,
+  QueryBatcher,
   batcher
 };
