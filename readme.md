@@ -6,8 +6,8 @@
 > * QueryBatcher is close.
 > * Broke sample into its own repo: [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
 > * Fixed some breaking changes in last version that prevented module from being used. This was a result of main pointing to /index instead of src/index. Should be fixed now.
- 
-### Roadmap
+
+### Roadmap (Macro)
 | Status | Summary | Comment |
 |:-------|:---------|:--------|
 | ☐ | QueryFactory | Combines Builder & Batcher |
@@ -18,6 +18,10 @@
 | ✓ | Babel | |
 | ✓ | TravisCI | [https://travis-ci.org/alechp/graphql-query-factory](https://travis-ci.org/alechp/graphql-query-factory)|
 | ☐ | Webpack | Babel has been useful for testing. Going to convert to webpack to enable uglification, tree-shaking, etc. |
+
+### Action Items (Micro)
+You can see TODOs in [todo.md](./todo.md)
+
 ## Getting Started
 #### Installation
 ```bash
