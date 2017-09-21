@@ -9,12 +9,12 @@ const log = console.log;
 
 function batcher(queries, concurrent) {
   let batcherHandle = new QueryBatcher(queries, concurrent);
-  let executedBatchPromise = batcherHandle.batchQueryExecute();
+  let executedBatchPromise = batcherHandle.queryBatchExecute();
   return executedBatchPromise;
 }
 
 class QueryBatcher {
-  constructor(queries, concurrent) {
+  constructor(queries, concurrent = 4) {
     this.queries = queries;
     this.concurrent = concurrent;
   }
@@ -30,19 +30,12 @@ class QueryBatcher {
   setConcurrent(numberOfConcurrentConnections) {
     this.concurrent = numberOfConcurrentConnections;
   }
-  batchQueryExecute() {
+  async queryBatchExecute() {
     let queries = this.getQueries();
     let concurrent = this.getConcurrent();
     let sliced = this.sliceQueryArray(queries, concurrent);
-    // let target = sliced.target;
-    // let original = sliced.original; //TODO: refactor "original" to "remaining"
-    // if (target !== undefined) {
-    //   for (let query in target) {
-    //     client.query({});
-    //   }
-    // } else {
-    //   return sliced;
-    // }
+    let res = Promise.all(sliced.target.map(this.queryExecute));
+    return res;
   }
 
   async queryExecute(query) {

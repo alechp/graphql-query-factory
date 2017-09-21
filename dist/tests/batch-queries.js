@@ -7,56 +7,56 @@ const log = console.log;
 
 const sampleQueries = [`mutation {
   createContent(
-    markup: markup1
-    raw: raw1
+    markup: "markupA"
+    raw: "rawA"
   ) {
     markup
     raw
   }
 }`, `mutation {
   createContent(
-    markup: markup2
-    raw: raw2
+    markup: "markupB"
+    raw: "rawB"
   ) {
     markup
     raw
   }
 }`, `mutation {
   createContent(
-    markup: markup3
-    raw: raw3
+    markup: "markupC"
+    raw: "rawC"
   ) {
     markup
     raw
   }
 }`, `mutation {
   createContent(
-    markup: markup4
-    raw: raw4
+    markup: "markupD"
+    raw: "rawD"
   ) {
     markup
     raw
   }
 }`, `mutation {
   createContent(
-    markup: markup5
-    raw: raw5
+    markup: "markupE"
+    raw: "rawE"
   ) {
     markup
     raw
   }
 }`, `mutation {
   createContent(
-    markup: markup6
-    raw: raw6
+    markup: "markupF"
+    raw: "rawF"
   ) {
     markup
     raw
   }
 }`, `mutation {
   createContent(
-    markup: markup7
-    raw: raw7
+    markup: "markupE"
+    raw: "rawE"
   ) {
     markup
     raw
@@ -65,16 +65,16 @@ const sampleQueries = [`mutation {
 
 const expectedSlice = [`mutation {
   createContent(
-    markup: markup1
-    raw: raw1
+    markup: "markupA"
+    raw: "rawA"
   ) {
     markup
     raw
   }
 }`, `mutation {
   createContent(
-    markup: markup2
-    raw: raw2
+    markup: "markupB"
+    raw: "rawB"
   ) {
     markup
     raw
@@ -107,11 +107,6 @@ test("execute single query", async t => {
   t.is(createContentData, JSON.stringify(res.data));
 });
 
-test("execute consecutive queries", async t => {
-  //TODO
-  t.pass();
-});
-
 test("execute two types of queries <query> && <mutation>", async t => {
   //TODO
   t.pass();
@@ -119,6 +114,8 @@ test("execute two types of queries <query> && <mutation>", async t => {
 
 test("execute four queries concurrently", async t => {
   //TODO
+  let q = new QueryBatcher(sampleQueries);
+  let res = q.queryBatchExecute();
   t.pass();
 });
 //
