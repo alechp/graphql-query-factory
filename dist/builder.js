@@ -79,12 +79,12 @@ class QueryBuilder {
     return queries;
   }
 
-  async buildQueries() {
+  buildQueries() {
     let q = this.getQuery();
     let v = this.getVariables();
     try {
-      let p = await this.extractQueryParams(q);
-      let interpolatedQuery = await this.injectQueryArguments(q, p, v);
+      let p = this.extractQueryParams(q);
+      let interpolatedQuery = this.injectQueryArguments(q, p, v);
       return interpolatedQuery;
     } catch (error) {
       log(`buildQueries() of ${this.constructor.name} failed because ${chalk.red(error)}`);

@@ -4,7 +4,7 @@ const chalk = require("chalk"); //https://www.npmjs.com/package/chalk
 const gql = require("graphql-tag");
 const log = console.log;
 
-function builder(query: string, variables: Array<mixed>): mixed {
+function builder(query: string, variables: Array<mixed>): Array<string> {
   let qb = new QueryBuilder(query, variables);
   let queries = qb.buildQueries();
   return queries;
@@ -91,16 +91,12 @@ class QueryBuilder {
     return queries;
   }
 
-  async buildQueries() {
+  buildQueries() {
     let q: string = this.getQuery();
     let v: mixed = this.getVariables();
     try {
-      let p: ?Array<string> = await this.extractQueryParams(q);
-      let interpolatedQuery: Array<string> = await this.injectQueryArguments(
-        q,
-        p,
-        v
-      );
+      let p: ?Array<string> = this.extractQueryParams(q);
+      let interpolatedQuery: Array<string> = this.injectQueryArguments(q, p, v);
       return interpolatedQuery;
     } catch (error) {
       log(
