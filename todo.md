@@ -3,6 +3,9 @@
 
 ##### Builder
 * [x] Ensure that output is formatted as an array
+* [ ] Append sync to current builder
+* [ ] Implement async method (like previously done)
+
 ##### Batcher
 * [ ] Add type switcher for the query type
 
@@ -32,7 +35,7 @@
 * [ ] Implement lerna
   * [ ] Update `graphql-query-factory-test` to utilize remote
   * [ ] Split `...-test` local implementation test (for local) into separate file
-  * [ ]
+
 ##### Docs
 * [ ] Update docs to represent changes
 * [ ] Publish link to new test project
