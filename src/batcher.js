@@ -1,4 +1,5 @@
 //@flow
+
 const fetch = require("node-fetch");
 global.fetch = fetch;
 const { ApolloClient, createNetworkInterface } = require("apollo-client");
@@ -6,7 +7,7 @@ const gql = require("graphql-tag");
 const chalk = require("chalk");
 const log = console.log;
 
-function batcher(queries: Array<string>, concurrent: number): mixed {
+function batcher(queries: Array<string>, concurrent: number = 4): mixed {
   let batcherHandle = new QueryBatcher(queries, concurrent);
   let executedBatchPromise = batcherHandle.queryBatchExecute();
   return executedBatchPromise;

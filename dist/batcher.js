@@ -7,7 +7,7 @@ const gql = require("graphql-tag");
 const chalk = require("chalk");
 const log = console.log;
 
-function batcher(queries, concurrent) {
+function batcher(queries, concurrent = 4) {
   let batcherHandle = new QueryBatcher(queries, concurrent);
   let executedBatchPromise = batcherHandle.queryBatchExecute();
   return executedBatchPromise;
