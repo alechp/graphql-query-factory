@@ -42,11 +42,16 @@
   * [x] Update .env with correct EP & Auth
   * [x] Update Travis
   * [x] Update Schema
+* [ ] Create new graph.cool account
+  * [ ] Create new Graph.cool project with open credentials that anyone can access
+  * [ ] Update .env to public creds
+  * [ ] Add .env to repo
+  * [ ] Update docs to explain usage
 
 ##### Finishing Touches
 * [ ] Create walkthrough video on usage
 * [ ] Generate static site that explains
+  * [ ] Add API docs (e.g. how to use 'queryExecute()' and other edge cases)
 * [ ] Post to #general in Graph.cool slack channel
 * [x] Add repository field to Package
-* [ ] Add [apollo-codegen](https://github.com/apollographql/apollo-codegen) from [apollo tutorial](http://dev.apollodata.com/react/using-with-types.html)
 * [ ] Add contribution section below
