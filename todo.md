@@ -31,10 +31,6 @@
     * [ ] `factory-queries`/build and batch queries
 * [ ] Add React (CRA) example
 * [ ] Add simple node (CLI) example
-* [ ] Move all examples to one directory
-* [ ] Implement lerna
-  * [ ] Update `graphql-query-factory-test` to utilize remote
-  * [ ] Split `...-test` local implementation test (for local) into separate file
 
 ##### Docs
 * [ ] Update docs to represent changes
