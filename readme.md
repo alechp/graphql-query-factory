@@ -2,12 +2,12 @@
 ![CI Build Status Bar](https://travis-ci.org/alechp/graphql-query-factory.svg?branch=flow)
 
 ## Status
-> * QueryBuilder available.
+> * QueryBuilder available in addition to builder. Removed async for now. Will be adding async for remote and custom stream for massive file uploads later. See [todo.md](./todo.md) for breakdown.
 > * QueryBatcher is close.
 > * Broke sample into its own repo: [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
 > * Fixed some breaking changes in last version that prevented module from being used. This was a result of main pointing to /index instead of src/index. Should be fixed now.
 
-### Roadmap (Macro)
+### Big Rocks
 | Status | Summary | Comment |
 |:-------|:---------|:--------|
 | ☐ | QueryFactory | Combines Builder & Batcher |
@@ -69,7 +69,8 @@ let queries = builder(mutationTemplate, mutationVariables);
 
 ```
 
-> NOTE: I will be adding a promisified verison of the builder back in the future.
+> NOTE: async version has been replaced here with sync version to better fit example use case here.
+> Will be adding async version of builder in future along with a stream. See [todo.md](./todo.md) for breakdown. 
 
 QueryBuilder Output:
 ```graphql
