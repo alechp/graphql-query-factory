@@ -1,6 +1,6 @@
 "use strict";
 
-const QueryBatcher = require("../batcher.js");
+const batcher = require("../batcher.js");
 const test = require("ava");
 const chalk = require("chalk");
 const log = console.log;
@@ -93,15 +93,13 @@ const singleQuery = `mutation {
 let createContentData = `{"createContent":{"markup":"markup1","raw":"raw1","__typename":"Content"}}`;
 
 test("slice two off of queries array", t => {
-  let sliced = QueryBatcher.sliceQueryArray(sampleQueries, 2);
+  let sliced = batcher.sliceQueryArray(sampleQueries, 2);
   let target = sliced.target;
   t.is(String(target), String(expectedSliceOfTwo));
 });
-test.skip("batcher is accessible", t => {
-  typeof QueryBatcher.batcher !== "undefined" ? t.pass() : t.fail();
-});
+
 test("execute single query", t => {
-  let res = QueryBatcher.queryExecute(singleQuery);
+  let res = batcher.queryExecute(singleQuery);
   t.is(createContentData, JSON.stringify(res));
 });
 
