@@ -70,7 +70,7 @@ let queries = builder(mutationTemplate, mutationVariables);
 ```
 
 > NOTE: async version has been replaced here with sync version to better fit example use case here.
-> Will be adding async version of builder in future along with a stream. See [todo.md](./todo.md) for breakdown. 
+> Will be adding async version of builder in future along with a stream. See [todo.md](./todo.md) for breakdown.
 
 QueryBuilder Output:
 ```graphql

@@ -27,6 +27,8 @@
 * [ ] `lib`: Flow errors fixed
 * [ ] `lib`: create flow-typed of docs
 * [ ] `docs`: create API docs
+* [ ] `lib`: Add 'isOnline' check before executing queries to ensure that error messages aren't misleading
+
 
 --------------------
 ## Micro
