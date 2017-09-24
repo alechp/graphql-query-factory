@@ -1,19 +1,13 @@
 //@flow
-
-// const fetch = require("node-fetch");
-// global.fetch = fetch;
-const { createApolloFetch } = require("apollo-fetch");
+const { GraphQLClient } = require("graphql-request");
 const chalk = require("chalk");
 const log = console.log;
 
-// function batcher(queries: Array<string>, concurrent: number = 4): mixed {
-//   let batcherHandle = new QueryBatcher(queries, concurrent);
-//   let executedBatchPromise = batcherHandle.queryBatchExecute();
-//   return executedBatchPromise;
-// }
-let endpoint = process.env.GQL_SIMPLE_ENDPOINT;
-
-const apolloFetch = createApolloFetch({ endpoint });
+const gClient = new GraphQLClient(process.env.GQL_SIMPLE_ENDPOINT, {
+  headers: {
+    Authorization: `Bearer ${process.env.GQL_AUTH_TOKEN}`
+  }
+});
 
 function sliceQueryArray(arrayOfQueries, concurrentQueries): mixed {
   let original: Array<string> = arrayOfQueries;
@@ -39,22 +33,30 @@ async function queryBatchExecute(
   return res;
 }
 
-async function queryExecute(query: string): mixed {
-  try {
-    return await apolloFetch(query);
-  } catch (error) {
-    log(`${chalk.red("Query execute failed. " + error)}`);
-  }
+function queryExecute(query: string): mixed {
+  return new Promise((resolve, reject) => {
+    gClient
+      .request(query)
+      .then(data => {
+        resolve(data);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
 }
-const batcher = (queries, concurrent) => {
-  log(`Inside QueryBatcher`);
-};
+// const batcher = (queries, concurrent) => {
+//   log(`inside querybatcher`);
+//   log(`Endpoint: ${endpoint}`);
+//   let endpoint = `${process.env.GQL_SIMPLE_ENDPOINT}`;
+//   const apolloFetch = createApolloFetch({ endpoint });
+//   queryExecute(apolloFetch, ;
+// };
 
 let QueryBatcher = {
   queryExecute,
   queryBatchExecute,
-  sliceQueryArray,
-  batcher
+  sliceQueryArray
 };
 
 module.exports = QueryBatcher;

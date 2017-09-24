@@ -1,19 +1,14 @@
 "use strict";
 
-// const fetch = require("node-fetch");
-// global.fetch = fetch;
-const { createApolloFetch } = require("apollo-fetch");
+const { GraphQLClient } = require("graphql-request");
 const chalk = require("chalk");
 const log = console.log;
 
-// function batcher(queries: Array<string>, concurrent: number = 4): mixed {
-//   let batcherHandle = new QueryBatcher(queries, concurrent);
-//   let executedBatchPromise = batcherHandle.queryBatchExecute();
-//   return executedBatchPromise;
-// }
-let endpoint = process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj7rzel6x02b40143fhkupzik";
-
-const apolloFetch = createApolloFetch({ endpoint });
+const gClient = new GraphQLClient(process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj7rzel6x02b40143fhkupzik", {
+  headers: {
+    Authorization: `Bearer ${process && process.env && process.env.GQL_AUTH_TOKEN || "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDU4NDkxNTIsImNsaWVudElkIjoiY2oxYzRqZ3Axa2lwdzAxMDV4MDVmZTRuNSIsInByb2plY3RJZCI6ImNqN3J6ZWw2eDAyYjQwMTQzZmhrdXB6aWsiLCJwZXJtYW5lbnRBdXRoVG9rZW5JZCI6ImNqN3J6cGVidDAyeTQwMTU1cG9odnllNGgifQ.ZA2zNCIvzrkUrASxkuZbX26rvHfsbKHK2V53J5CwQi4"}`
+  }
+});
 
 function sliceQueryArray(arrayOfQueries, concurrentQueries) {
   let original = arrayOfQueries;
@@ -36,22 +31,27 @@ async function queryBatchExecute(arrayOfQueries, concurrentQueries) {
   return res;
 }
 
-async function queryExecute(query) {
-  try {
-    return await apolloFetch(query);
-  } catch (error) {
-    log(`${chalk.red("Query execute failed. " + error)}`);
-  }
+function queryExecute(query) {
+  return new Promise((resolve, reject) => {
+    gClient.request(query).then(data => {
+      resolve(data);
+    }).catch(err => {
+      reject(err);
+    });
+  });
 }
-const batcher = (queries, concurrent) => {
-  log(`Inside QueryBatcher`);
-};
+// const batcher = (queries, concurrent) => {
+//   log(`inside querybatcher`);
+//   log(`Endpoint: ${endpoint}`);
+//   let endpoint = `${process.env.GQL_SIMPLE_ENDPOINT}`;
+//   const apolloFetch = createApolloFetch({ endpoint });
+//   queryExecute(apolloFetch, ;
+// };
 
 let QueryBatcher = {
   queryExecute,
   queryBatchExecute,
-  sliceQueryArray,
-  batcher
+  sliceQueryArray
 };
 
 module.exports = QueryBatcher;
