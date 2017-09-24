@@ -99,7 +99,7 @@ const singleQuery = `mutation {
   }
 }`;
 
-let createContentData = `{"createContent":{"markup":"markup1","raw":"raw1"}}`;
+let singleQueryReturnComparison = `{"createContent":{"markup":"markup1","raw":"raw1"}}`;
 
 test("slice two off of queries array", t => {
   let sliced = batcher.sliceQueryArray(sampleQueries, 2);
@@ -109,16 +109,13 @@ test("slice two off of queries array", t => {
 
 test("execute single query", async t => {
   let res = await batcher.queryExecute(singleQuery);
-  t.is(createContentData, JSON.stringify(res));
+  t.is(singleQueryReturnComparison, JSON.stringify(res));
 });
 
-test.skip("execute two types of queries <query> && <mutation>", async t => {
+test("execute four queries concurrently", async t => {
   //TODO
-  t.pass();
-});
-
-test.skip("execute four queries concurrently", async t => {
-  //TODO
+  let res = queryBatchExecute(sampleQueries, 2);
+  log(`Res: ${res}`);
   t.pass();
 });
 //

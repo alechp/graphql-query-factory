@@ -32,10 +32,8 @@ async function queryBatchExecute(arrayOfQueries, concurrentQueries) {
 }
 
 function queryExecute(query) {
-  log(`Inside queryExecute`);
   return new Promise((resolve, reject) => {
     request(process && process.env && process.env.GQL_SIMPLE_ENDPOINT || "https://api.graph.cool/simple/v1/cj7rzel6x02b40143fhkupzik", query).then(data => {
-      log(`Data in queryExecute: ${data}`);
       resolve(data);
     }).catch(err => {
       log(err.response.errors);

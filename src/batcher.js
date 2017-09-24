@@ -34,11 +34,9 @@ async function queryBatchExecute(
 }
 
 function queryExecute(query: string): mixed {
-  log(`Inside queryExecute`);
   return new Promise((resolve, reject) => {
     request(process.env.GQL_SIMPLE_ENDPOINT, query)
       .then(data => {
-        log(`Data in queryExecute: ${data}`);
         resolve(data);
       })
       .catch(err => {
