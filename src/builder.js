@@ -1,7 +1,6 @@
 //@flow
 
 const chalk = require("chalk"); //https://www.npmjs.com/package/chalk
-const gql = require("graphql-tag");
 const log = console.log;
 
 function builder(query: string, variables: Array<mixed>): Array<string> {

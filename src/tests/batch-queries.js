@@ -1,4 +1,4 @@
-const { QueryBatcher, batcher } = require("../batcher.js");
+const QueryBatcher = require("../batcher.js");
 const test = require("ava");
 const chalk = require("chalk");
 const log = console.log;
@@ -69,7 +69,7 @@ const sampleQueries = [
 }`
 ];
 
-const expectedSlice = [
+const expectedSliceOfTwo = [
   `mutation {
   createContent(
     markup: "markupA"
@@ -101,11 +101,10 @@ const singleQuery = `mutation {
 
 let createContentData = `{"createContent":{"markup":"markup1","raw":"raw1","__typename":"Content"}}`;
 
-test("slice query array", t => {
-  let q = new QueryBatcher(sampleQueries, 2);
-  let sliced = q.sliceQueryArray();
+test("slice two off of queries array", t => {
+  let sliced = QueryBatcher.sliceQueryArray(sampleQueries, 2);
   let target = sliced.target;
-  t.is(String(target), String(expectedSlice));
+  t.is(String(target), String(expectedSliceOfTwo));
 });
 
 test("execute single query", async t => {
