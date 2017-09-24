@@ -99,7 +99,7 @@ const singleQuery = `mutation {
   }
 }`;
 
-let createContentData = `{"createContent":{"markup":"markup1","raw":"raw1","__typename":"Content"}}`;
+let createContentData = `{"createContent":{"markup":"markup1","raw":"raw1"}}`;
 
 test("slice two off of queries array", t => {
   let sliced = batcher.sliceQueryArray(sampleQueries, 2);
@@ -107,8 +107,8 @@ test("slice two off of queries array", t => {
   t.is(String(target), String(expectedSliceOfTwo));
 });
 
-test("execute single query", t => {
-  let res = batcher.queryExecute(singleQuery);
+test("execute single query", async t => {
+  let res = await batcher.queryExecute(singleQuery);
   t.is(createContentData, JSON.stringify(res));
 });
 
