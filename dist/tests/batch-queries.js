@@ -92,11 +92,11 @@ const singleQuery = `mutation {
 
 let singleQueryReturnComparison = `{"createContent":{"markup":"markup1","raw":"raw1"}}`;
 
-test("slice two off of queries array", t => {
-  let sliced = batcher.sliceQueryArray(sampleQueries, 2);
-  let target = sliced.target;
-  t.is(String(target), String(expectedSliceOfTwo));
-});
+// test("slice two off of queries array", t => {
+//   let sliced = batcher.sliceQueryArray(sampleQueries, 2);
+//   let target = sliced.target;
+//   t.is(String(target), String(expectedSliceOfTwo));
+// });
 
 test("execute single query", async t => {
   let res = await batcher.queryExecute(singleQuery);
@@ -105,7 +105,7 @@ test("execute single query", async t => {
 
 test("execute four queries concurrently", async t => {
   //TODO
-  let res = await batcher.queryBatchExecute(sampleQueries, 2);
+  let res = await batcher.queryBatchExec(sampleQueries, 2);
   log(`Res: ${res}`);
   t.pass();
 });
