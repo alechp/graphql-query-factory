@@ -2,7 +2,7 @@
 > The TODO Sections represents smaller tasks that fit within the context of the Roadmap.
 
 ----------------------------------------------
-## Macro
+## Current
 
 | Tag Name | Description |
 |:---------|:------------|
@@ -12,6 +12,7 @@
 
 #### Version <= 1.0
 * [x] `lib`: make batchQueryExecute loop over original after target array is completed (currently truncates after initial execution)
+* [ ] `lib`: Fix issue with string literals 
 * [ ] `test-project`: fix constructor error thrown after importing batcher
 * [ ] `lib`: Implement factory shim that wraps builder and batcher
 * [ ] `test-ava`: factory test in factory-queries.js
@@ -31,8 +32,11 @@
 * [ ] `lib`: Add 'isOnline' check before executing queries to ensure that error messages aren't misleading
 
 
+
+
+
 --------------------
-## Micro
+## Old
 
 #### Builder
 * [x] Ensure that output is formatted as an array

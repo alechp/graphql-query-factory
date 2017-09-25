@@ -76,31 +76,52 @@ const builtMutations = [`mutation {
 }`];
 
 const mutationVariables = [{
-  markup: "markup1",
-  raw: "raw1"
+  markup: "markupA",
+  raw: "rawA"
 }, {
-  markup: "markup2",
-  raw: "raw2"
+  markup: "markupB",
+  raw: "rawB"
 }, {
-  markup: "markup3",
-  raw: "raw3"
+  markup: "markupC",
+  raw: "rawC"
+}, {
+  markup: "markupD",
+  raw: "rawD"
+}, {
+  markup: "markupE",
+  raw: "rawE"
+}, {
+  markup: "markupF",
+  raw: "rawF"
+}, {
+  markup: "markupG",
+  raw: "rawG"
 }];
-let batchQueryReturnComparison = `[ { createContent: { markup: 'markupA', raw: 'rawA' } },
-  { createContent: { markup: 'markupB', raw: 'rawB' } },
-  { createContent: { markup: 'markupC', raw: 'rawC' } },
-  { createContent: { markup: 'markupD', raw: 'rawD' } },
-  { createContent: { markup: 'markupE', raw: 'rawE' } },
-  { createContent: { markup: 'markupF', raw: 'rawF' } },
-  { createContent: { markup: 'markupG', raw: 'rawG' } } ]`;
+let batchQueryReturnComparison = [{ createContent: { markup: "markupA", raw: "rawA" } }, { createContent: { markup: "markupB", raw: "rawB" } }, { createContent: { markup: "markupC", raw: "rawC" } }, { createContent: { markup: "markupD", raw: "rawD" } }, { createContent: { markup: "markupE", raw: "rawE" } }, { createContent: { markup: "markupF", raw: "rawF" } }, { createContent: { markup: "markupG", raw: "rawG" } }];
 
 test("queries build and batch independently", async t => {
   let builtQueries = builder(mutationTemplate, mutationVariables);
   let executedQueries = await batcher.batch(builtQueries);
-  log(`executedQueries ((${chalk.yellow("independent")}): ${executedQueries}`);
-  t.is(batchQueryReturnComparison, executedQueries);
+  // if (builtQueries instanceof Array) {
+  //   executedQueries = await batcher.batch(builtQueries);
+  // }
+  log(`${chalk.yellow("builtQueries")}\n ---------------------------------------- \n ${builtQueries}\n ---------------------------------------- \n`);
+  let strBuiltQueries = JSON.stringify(builtQueries);
+  log(`${chalk.yellow("executedQueries")}\n ---------------------------------------- \n ${JSON.stringify(executedQueries)}\n ---------------------------------------- \n`);
+  for (let [key, val] in executedQueries) {
+    log(`k[${key}]\t\tv[${val}]`);
+  }
+  ////////////////////////
+  log(`${chalk.yellow("strBuiltQueries")}\n ---------------------------------------- \n ${strBuiltQueries}\n ---------------------------------------- \n`);
+  let strBatch = JSON.stringify(batchQueryReturnComparison);
+  log(`${chalk.yellow("strBatch")}\n ---------------------------------------- \n ${strBatch}\n ---------------------------------------- \n`);
+  let strExecuted = JSON.stringify(executedQueries);
+  log(`${chalk.yellow("strExecuted")}\n ---------------------------------------- \n ${strExecuted}\n ---------------------------------------- \n`);
+  t.is(strBatch, strExecuted);
 });
 test.skip("queries build and batch with factory", t => {
   let executedQueries = factory(mutationTemplate, mutationVariables);
   log(`executedQueries (${chalk.yellow("factory")}): ${executedQueries}`);
+
   t.is(batchQueryReturnComparison, executedQueries);
 });
