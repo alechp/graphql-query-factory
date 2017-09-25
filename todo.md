@@ -11,16 +11,17 @@
 | docs | any media that explains usage |
 
 #### Version <= 1.0
-* [ ] `lib`: make batchQueryExecute loop over original after target array is completed (currently truncates after initial execution)
-* [ ] `test`: fix constructor error thrown after importing batcher
-* [ ] `lib`: add async version of builder for remote data streams
+* [x] `lib`: make batchQueryExecute loop over original after target array is completed (currently truncates after initial execution)
+* [ ] `test-project`: fix constructor error thrown after importing batcher
+* [ ] `lib`: Implement factory shim that wraps builder and batcher
+* [ ] `test-ava`: factory test in factory-queries.js
+* [ ] `test-ava`: builder and batcher combined ava test in factory-queries.js
+* [ ] `lib`: export factory in index
 * [ ] `lib`: add stream version of builder for massive, local data streams
-* [ ] `lib`: update method names to be query-agnostic (e.g. 'template' instead of 'query')
+* [ ] `lib`: add async version of builder for remote data streams
 
 #### Version <= 2.0
 * [ ] `lib`: Implement webpack (uglification, tree shaking, babel, etc.)
-* [ ] `lib`:Implement factory shim that wraps builder and batcher
-* [ ] `lib`: export factory in index
 * [ ] `lib`: update version to 2.0
 
 #### Version >= 2.0
