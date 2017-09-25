@@ -69,26 +69,6 @@ const sampleQueries = [
 }`
 ];
 
-const expectedSliceOfTwo = [
-  `mutation {
-  createContent(
-    markup: "markupA"
-    raw: "rawA"
-  ) {
-    markup
-    raw
-  }
-}`,
-  `mutation {
-  createContent(
-    markup: "markupB"
-    raw: "rawB"
-  ) {
-    markup
-    raw
-  }
-}`
-];
 const singleQuery = `mutation {
   createContent(
     markup: "markup1"
@@ -100,22 +80,20 @@ const singleQuery = `mutation {
 }`;
 
 let singleQueryReturnComparison = `{"createContent":{"markup":"markup1","raw":"raw1"}}`;
-
-// test("slice two off of queries array", t => {
-//   let sliced = batcher.sliceQueryArray(sampleQueries, 2);
-//   let target = sliced.target;
-//   t.is(String(target), String(expectedSliceOfTwo));
-// });
+let batchQueryReturnComparison = `[ { createContent: { markup: 'markupA', raw: 'rawA' } },
+  { createContent: { markup: 'markupB', raw: 'rawB' } },
+  { createContent: { markup: 'markupC', raw: 'rawC' } },
+  { createContent: { markup: 'markupD', raw: 'rawD' } },
+  { createContent: { markup: 'markupE', raw: 'rawE' } },
+  { createContent: { markup: 'markupF', raw: 'rawF' } },
+  { createContent: { markup: 'markupG', raw: 'rawG' } } ]`;
 
 test("execute single query", async t => {
-  let res = await batcher.queryExecute(singleQuery);
+  let res = await batcher.request(singleQuery);
   t.is(singleQueryReturnComparison, JSON.stringify(res));
 });
 
-test("execute four queries concurrently", async t => {
-  //TODO
-  let res = await batcher.queryBatchExec(sampleQueries, 2);
-  log(`Res: ${res}`);
-  t.pass();
+test("execute batch of queries", async t => {
+  let res = await batcher.batch(sampleQueries, 2);
+  t.pass(batchQueryReturnComparison, res);
 });
-//

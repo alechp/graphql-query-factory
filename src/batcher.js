@@ -24,12 +24,13 @@ function queryExecute(query: string): mixed {
 }
 
 async function queryExecuteBatch(arrayOfQueries) {
-  Promise.all(arrayOfQueries.map(query => queryExecute(query)));
+  let resp = Promise.all(arrayOfQueries.map(query => queryExecute(query)));
+  return resp;
 }
 
 let batcher = {
-  queryExecute,
-  queryExecuteBatch
+  request: queryExecute,
+  batch: queryExecuteBatch
 };
 
 module.exports = batcher;

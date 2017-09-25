@@ -52,7 +52,6 @@ class QueryBuilder {
      [$markup, $raw]
     */
     let regex = /\$\w+/g;
-    // let regex = /\$\w+(?=[\):])/g;
     let queryParams = query.match(regex);
     if (queryParams !== null) {
       this.setQueryParams(queryParams);
@@ -80,7 +79,7 @@ class QueryBuilder {
         let inc: number = 0;
         let queryNew: string = query.replace(regex, (match, pos, orig) => {
           inc++;
-          return inc == 1 ? value : match;
+          return inc == 1 ? `"${value}"` : match;
         });
         query = queryNew;
       }
@@ -107,7 +106,4 @@ class QueryBuilder {
   }
 }
 
-module.exports = {
-  QueryBuilder,
-  builder
-};
+module.exports = builder;

@@ -22,96 +22,14 @@ function queryExecute(query) {
   });
 }
 
-async function queryBatchExec(arrayOfQueries, concurrentQueries) {
-  Promise.all(arrayOfQueries.map(query => queryExecute(query)));
-  // let t: Array<string> = [];
-  // let c: number = concurrentQueries;
-  // let o: Array<string> = arrayOfQueries;
-  // let n: Array<string> = [];
-  // if (o instanceof Array) {
-  //   if (o.length >= concurrentQueries) {
-  //     t = o.slice(0, c);
-  //   } else {
-  //     t = o.slice(0, o.length);
-  //   }
-  //   Promise.all(t.map( query => await queryExecute(query)));
-  //   o = o.slice(c);
-  //   queryBatchExec(o, c);
+async function queryExecuteBatch(arrayOfQueries) {
+  let resp = Promise.all(arrayOfQueries.map(query => queryExecute(query)));
+  return resp;
 }
-function sliceQueryArray(arrayOfQueries, concurrentQueries) {
-  let original = arrayOfQueries;
-  let concurrent = concurrentQueries;
-  let target = [];
-  //target and original defined in builder.js
-  target = original.slice(0, concurrent);
-  original = original.slice(concurrent, original.length);
-  // log(`${chalk.green('\nTarget\n---------------------------------\n')} ${target.toString()}`);
-  // log(`${chalk.green('\nOriginal\n---------------------------------\n')} ${original.toString()}`);
-  let queries = {
-    target: [...target],
-    original: [...original]
-  };
-  log(String(queries));
-  return queries;
-}
-// function designateQueryToExecute(arrayOfQueries) {
-//   let target = [];
-//   return new Promise((resolve, reject) => {
-//     for(let target in Object.entries(arrayOfQueries) {
-//       for(let query in Object.entries(arrayofQueries).target) {
-//         target.push(query)
-//       }
-//     }
-//
-//   });
-// }
-// async function queryBatchExec(
-//   arrayOfQueries: Array<string>,
-//   concurrentQueries: number
-// ): mixed {
-//   let sliced = this.sliceQueryArray(arrayOfQueries, concurrentQueries);
-//   for (let s of sliced.target) {
-//     log(`s in sliced: ${s}`);
-//   }
-//   try {
-//     for (let [key, val] of Object.entries(sliced)) {
-//       for (let v in val) {
-//         log(`v in val: ${v}`);
-//       }
-//       if (key == "target") {
-//         Promise.all(await this.queryExecute(val));
-//       } else {
-//         queryBatchExec(val, concurrentQueries);
-//       }
-//     }
-//     Promise.all(await this.queryExecute(sliced.target));
-//   } catch (error) {
-//     log(`queryBatchExec(): ${error}`);
-//   }
-// }
-
-////
-// async function queryBatchExecute(
-//   arrayOfQueries: Array<string>,
-//   concurrentQueries: number
-// ): mixed {
-//   try {
-//     //target, original
-//     let sliced = this.sliceQueryArray(arrayOfQueries, concurrentQueries);
-//     log(`original length: ${sliced.original.length}`);
-//     for (let query of sliced.target) {
-//       log(`${chalk.blue("Query in queryBatchExecute loop:" + query)}`);
-//       Promise.all(await this.queryExecute(query));
-//     }
-//   } catch (error) {
-//     log(`Failed to execute queryBatchExecute. ${error}`);
-//   }
-// }
 
 let batcher = {
-  queryExecute,
-  queryBatchExec,
-  sliceQueryArray
+  request: queryExecute,
+  batch: queryExecuteBatch
 };
 
 module.exports = batcher;
