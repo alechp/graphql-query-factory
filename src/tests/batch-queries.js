@@ -94,6 +94,6 @@ test("execute single query", async t => {
 });
 
 test("execute batch of queries", async t => {
-  let res = await batcher.batch(sampleQueries, 2);
+  let res = await batcher.batch(sampleQueries);
   t.pass(batchQueryReturnComparison, res);
 });
