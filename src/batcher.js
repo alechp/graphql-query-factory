@@ -23,14 +23,36 @@ function sliceQueryArray(arrayOfQueries, concurrentQueries): mixed {
   };
   return queries;
 }
-
+// function designateQueryToExecute(arrayOfQueries) {
+//   let target = [];
+//   return new Promise((resolve, reject) => {
+//     for(let target in Object.entries(arrayOfQueries) {
+//       for(let query in Object.entries(arrayofQueries).target) {
+//         target.push(query)
+//       }
+//     }
+//
+//   });
+// }
 async function queryBatchExecute(
   arrayOfQueries: Array<string>,
   concurrentQueries: number
 ): mixed {
-  let sliced = this.sliceQueryArray(queries, concurrent);
-  let res = Promise.all(await this.queryExecute(query));
-  return res;
+  try {
+    //target, original
+    do {
+      let sliced = this.sliceQueryArray(arrayOfQueries, concurrentQueries);
+      log(`original length: ${sliced.original.length}`);
+      for (let query of sliced.target) {
+        // log(`Key: ${key} Val: ${val}`);
+        log(`${chalk.blue("Query in queryBatchExecute loop:" + query)}`);
+        let res = Promise.all(await this.queryExecute(query));
+      }
+    } while (sliced.original.length > 0);
+    return res;
+  } catch (error) {
+    log(`Failed to execute queryBatchExecute. ${error}`);
+  }
 }
 
 function queryExecute(query: string): mixed {
@@ -44,24 +66,8 @@ function queryExecute(query: string): mixed {
         log(err.response.data);
         reject(err);
       });
-    // client
-    //   .request(query)
-    //   .then(data => {
-    //     log(`Data in queryExecute: ${data}`);
-    //     resolve(data);
-    //   })
-    //   .catch(err => {
-    //     reject(err);
-    //   });
   });
 }
-// const batcher = (queries, concurrent) => {
-//   log(`inside querybatcher`);
-//   log(`Endpoint: ${endpoint}`);
-//   let endpoint = `${process.env.GQL_SIMPLE_ENDPOINT}`;
-//   const apolloFetch = createApolloFetch({ endpoint });
-//   queryExecute(apolloFetch, ;
-// };
 
 let batcher = {
   queryExecute,

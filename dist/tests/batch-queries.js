@@ -55,8 +55,8 @@ const sampleQueries = [`mutation {
   }
 }`, `mutation {
   createContent(
-    markup: "markupE"
-    raw: "rawE"
+    markup: "markupG"
+    raw: "rawG"
   ) {
     markup
     raw
@@ -105,7 +105,7 @@ test("execute single query", async t => {
 
 test("execute four queries concurrently", async t => {
   //TODO
-  let res = queryBatchExecute(sampleQueries, 2);
+  let res = await batcher.queryBatchExecute(sampleQueries, 2);
   log(`Res: ${res}`);
   t.pass();
 });
