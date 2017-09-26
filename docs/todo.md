@@ -57,3 +57,4 @@
 
 Questions:
 1. Is it worth integrating lerna into the project?
+2. Need to test this on other GraphQL environments to ensure this works properly. Since this is going to be utilized for a CLI project and a CRA project, might be worth also doing vanilla experiments on express-graphql backend... ?
