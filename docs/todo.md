@@ -33,7 +33,8 @@
 * [x] `lib`: export factory in index
 
 #### Version == 1.1.x
-* [ ] `docs`: Add output source in README towards bottom of file (so doesn't obscure example)
+* [x] `docs`: Add output source in README towards bottom of file (so doesn't obscure example)
+* [ ] `docs`: Add summary at top of README (recommended by @aurnik from Graph.cool community)
 * [ ] `docs`: Create new graph.cool project
   * [ ] Update local graph.cool reference
   * [ ] Add .env file to repo with updated endpoint/token
