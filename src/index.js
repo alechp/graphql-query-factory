@@ -4,7 +4,7 @@ const factory = require("./factory.js");
 
 let graphqlQueryFactory = {
   builder,
-  batcher
+  batcher,
   factory
-}
+};
 module.exports = graphqlQueryFactory;
