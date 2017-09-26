@@ -23,7 +23,7 @@ function queryExecute(query: string): mixed {
   });
 }
 
-async function queryExecuteBatch(arrayOfQueries) {
+function queryExecuteBatch(arrayOfQueries) {
   let resp = Promise.all(arrayOfQueries.map(query => queryExecute(query)));
   return resp;
 }
