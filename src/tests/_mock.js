@@ -128,10 +128,10 @@ const builtMutation = `mutation {
 let mock = {
   template: mutationTemplate,
   variables: mutationVariables,
-  batchQuery: builtMutations,
   singleQuery: builtMutation,
-  batchReturn: batchQueryReturnComparison,
-  singleReturn: singleQueryReturnComparison
+  batchQuery: builtMutations,
+  singleReturn: singleQueryReturnComparison,
+  batchReturn: batchQueryReturnComparison
 };
 
 module.exports = mock;
