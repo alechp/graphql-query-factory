@@ -1,7 +1,6 @@
 "use strict";
 
 const chalk = require("chalk"); //https://www.npmjs.com/package/chalk
-const gql = require("graphql-tag");
 const log = console.log;
 
 function builder(query, variables) {
@@ -51,7 +50,6 @@ class QueryBuilder {
      [$markup, $raw]
     */
     let regex = /\$\w+/g;
-    // let regex = /\$\w+(?=[\):])/g;
     let queryParams = query.match(regex);
     if (queryParams !== null) {
       this.setQueryParams(queryParams);
@@ -69,7 +67,7 @@ class QueryBuilder {
         let inc = 0;
         let queryNew = query.replace(regex, (match, pos, orig) => {
           inc++;
-          return inc == 1 ? value : match;
+          return inc == 1 ? `"${value}"` : match;
         });
         query = queryNew;
       }
@@ -92,7 +90,4 @@ class QueryBuilder {
   }
 }
 
-module.exports = {
-  QueryBuilder,
-  builder
-};
+module.exports = builder;

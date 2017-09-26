@@ -2,12 +2,12 @@
 ![CI Build Status Bar](https://travis-ci.org/alechp/graphql-query-factory.svg?branch=flow)
 
 ## Status
-> * QueryBuilder available.
+> * QueryBuilder available in addition to builder. Removed async for now. Will be adding async for remote and custom stream for massive file uploads later. See [todo.md](./todo.md) for breakdown.
 > * QueryBatcher is close.
 > * Broke sample into its own repo: [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
 > * Fixed some breaking changes in last version that prevented module from being used. This was a result of main pointing to /index instead of src/index. Should be fixed now.
- 
-### Roadmap
+
+### Big Rocks
 | Status | Summary | Comment |
 |:-------|:---------|:--------|
 | ☐ | QueryFactory | Combines Builder & Batcher |
@@ -18,6 +18,10 @@
 | ✓ | Babel | |
 | ✓ | TravisCI | [https://travis-ci.org/alechp/graphql-query-factory](https://travis-ci.org/alechp/graphql-query-factory)|
 | ☐ | Webpack | Babel has been useful for testing. Going to convert to webpack to enable uglification, tree-shaking, etc. |
+
+### Action Items (Micro)
+You can see TODOs in [todo.md](./todo.md)
+
 ## Getting Started
 #### Installation
 ```bash
@@ -31,7 +35,7 @@ Not available yet
 ```
 --------------------------------
 
-##### QueryBuilder - [Sample Project](https://github.com/alechp/graphql-query-factory/tree/master/graphql-query-factory-test-project)
+##### QueryBuilder - [Sample Project](https://github.com/alechp/graphql-query-factory-test)
 ```js
 const { builder } = require('graphql-query-factory');
 const log = console.log;
@@ -64,6 +68,10 @@ const mutationTemplate = `mutation {
 let queries = builder(mutationTemplate, mutationVariables);
 
 ```
+
+> NOTE: async version has been replaced here with sync version to better fit example use case here.
+> Will be adding async version of builder in future along with a stream. See [todo.md](./todo.md) for breakdown.
+
 QueryBuilder Output:
 ```graphql
 mutation {
