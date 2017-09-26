@@ -23,7 +23,7 @@
 | test | either 'graphql-query-factory-test' or internal ava tests |
 | docs | any media that explains usage |
 
-#### Version <= 1.0
+#### Version == 1.0.x
 * [x] `lib`: make batchQueryExecute loop over original after target array is completed (currently truncates after initial execution)
 * [x] `lib`: Fix issue with string literals in built query stirngs
 * [x] `test-project`: fix constructor error thrown after importing batcher
@@ -32,7 +32,7 @@
 * [x] `test-ava`: builder and batcher combined ava test in factory-queries.js
 * [x] `lib`: export factory in index
 
-#### Version == 2.0
+#### Version == 1.1.x
 * [ ] `docs`: Add output source in README towards bottom of file (so doesn't obscure example)
 * [ ] `docs`: Add CLI screenshot and graphcool screenshot to [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
 * [ ] `lib`: Implement webpack (uglification, tree shaking, babel, etc.)
@@ -42,7 +42,7 @@
 * [ ] `lib`: Remove graphql-request dependency in favor of using fetch
 * [ ] `lib`: update version to 2.0
 
-#### Version >= 2.0
+#### Version == 1.2.x
 * [ ] `lib`: Flow errors fixed
 * [ ] `lib`: create flow-typed libdef for graphql-query-factory
 * [ ] `docs`: create API docs
