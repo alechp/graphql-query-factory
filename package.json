@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "start": "npm run dev",
     "dev": "npm run build && npm test",
     "build": "babel src --out-dir dist",
     "test": "ava dist/tests/*.js --verbose",
