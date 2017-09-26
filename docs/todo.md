@@ -32,6 +32,7 @@
 
 #### Version == 2.0
 * [ ] `docs`: Add table of contents to README and TODO
+* [ ] `docs`: Add output source in README
 * [ ] `docs`: Add CLI screenshot and graphcool screenshot to graphql-query-factory-test
 * [ ] `lib`: Implement webpack (uglification, tree shaking, babel, etc.)
 * [ ] `lib`: Refactor builder to not use classes
