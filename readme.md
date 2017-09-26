@@ -2,117 +2,84 @@
 ![CI Build Status Bar](https://travis-ci.org/alechp/graphql-query-factory.svg?branch=flow)
 
 ## Status
-> * QueryBuilder available in addition to builder. Removed async for now. Will be adding async for remote and custom stream for massive file uploads later. See [todo.md](./todo.md) for breakdown.
-> * QueryBatcher is close.
-> * Broke sample into its own repo: [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
-> * Fixed some breaking changes in last version that prevented module from being used. This was a result of main pointing to /index instead of src/index. Should be fixed now.
-
-### Big Rocks
-| Status | Summary | Comment |
-|:-------|:---------|:--------|
-| ☐ | QueryFactory | Combines Builder & Batcher |
-| ✓ | QueryBuilder | Builds individual query strings based on the number of variable combinations you have. |
-| ☐ | QueryBatcher | Executes the entire array of GraphQL Query Strings. |
-| ✓ | Ava | |
-| ☐ | Flow | Dependencies added but not finished |
-| ✓ | Babel | |
-| ✓ | TravisCI | [https://travis-ci.org/alechp/graphql-query-factory](https://travis-ci.org/alechp/graphql-query-factory)|
-| ☐ | Webpack | Babel has been useful for testing. Going to convert to webpack to enable uglification, tree-shaking, etc. |
+* `factory` included as of 1.20.0 (shim around builder and batcher)
+* `batcher` included as of 1.20.0 (executes array of queries)
+* `builder` updated (this builds query strings from query/mutation and variables)
 
 ### Action Items (Micro)
-You can see TODOs in [todo.md](./todo.md)
+You can see TODOs in [todo.md](./docs/todo.md)
 
 ## Getting Started
-#### Installation
+### Installation
 ```bash
 npm install graphql-query-factory -S
 ```
 
-#### Sample Use
-QueryFactory
-```js
-Not available yet
-```
+### Examples
+> All of these examples can be seen at [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
+
+All mock variables (e.g. "mock.template", "mock.variables") can be viewed here: [.../tests/_mock.js](https://github.com/alechp/graphql-query-factory/blob/master/src/tests/_mock.js)
+
 --------------------------------
 
-##### QueryBuilder - [Sample Project](https://github.com/alechp/graphql-query-factory-test)
+#### builder
 ```js
 const { builder } = require('graphql-query-factory');
-const log = console.log;
 
-const mutationTemplate = `mutation {
-    createContent(
-      markup: $markup
-      raw: $raw
-    ) {
-      markup
-      raw
-    }
-  }`;
-
-  const mutationVariables = [
-    {
-      "markup": "markup1",
-      "raw": "raw1"
-    },
-    {
-      "markup": "markup2",
-      "raw": "raw2"
-    },
-    {
-      "markup": "markup3",
-      "raw": "raw3"
-    }
-  ];
-
-let queries = builder(mutationTemplate, mutationVariables);
-
+let queries = builder(mock.template, mock.variables);
+log(`builder(mock.template, mock.variables): ${queries}`);
 ```
 
-> NOTE: async version has been replaced here with sync version to better fit example use case here.
-> Will be adding async version of builder in future along with a stream. See [todo.md](./todo.md) for breakdown.
+> NOTE: async version has been replaced here with sync version.
+> Will be adding async version of builder in future along with a stream. See [todo.md](./docs/todo.md) for details.
 
-QueryBuilder Output:
-```graphql
-mutation {
-    createContent(
-      markup: markup1
-      raw: raw1
-    ) {
-      markup
-      raw
-    }
-  }
-mutation {
-    createContent(
-      markup: markup2
-      raw: raw2
-    ) {
-      markup
-      raw
-    }
-  }
-mutation {
-    createContent(
-      markup: markup3
-      raw: raw3
-    ) {
-      markup
-      raw
-    }
-  }
-```
 --------------------------------
 
-QueryBatcher
+#### factory
 ```js
-Not available yet
+const { factory } = require('graphql-query-factory');
+
+factory(mock.template, mock.variables)
+  .then(data =>
+    log(
+      `factory(mock.template, mock.variables): ${JSON.stringify(data, null, 4)}`
+    )
+  )
+  .catch(err => log(`factory(mock.template, mock.variables): ${err}`));
 ```
 
 --------------------------------
 
-#### Environment Variables
+#### batcher
+```js
+const { batcher } = require('graphql-query-factory');
 
-When using `QueryBatcher()` or `batcher` you must include two environment variables:
+batcher
+  .request(mock.singleQuery)
+  .then(data => log(`batcher.request(mock.singleQuery): ${(data, null, 4)}`))
+  .catch(err => log(`batcher.request(mock.singleQuery): ${err}`));
+```
+--------------------------------
+
+#### Visual of data being saved to GraphQL database
+![graphcool](./docs/graphcool_data_saved.png)
+
+
+##### Configuration (Environment Variables)
+
+When using `factory` or `batcher` you must include two environment variables:
 * `GQL_SIMPLE_ENDPOINT`
 * `GQL_AUTH_TOKEN`
+
+If you don't already have a method for this, you can:
+```
+1. Create .env file in your root directory
+2. npm install dotenv -S
+3. add require('dotenv').config() at entry point (i.e. index/main) of your project
+4. define variables like so:
+
+GQL_SIMPLE_ENDPOINT=http://api.endpoint.goes.here/12345
+GQL_AUTH_TOKEN=longobscuretoken
+
+^ note that there's no quotation marks
+```
