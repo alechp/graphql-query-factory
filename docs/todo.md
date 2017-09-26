@@ -4,9 +4,9 @@
 ### Big Rocks
 | Status | Summary | Comment |
 |:-------|:---------|:--------|
-| ✓ | factory | Combines Builder & Batcher |
-| ✓ | builder | Builds individual query strings based on the number of variable combinations you have. |
-| ✓ | batcher | Executes the entire array of GraphQL Query Strings. |
+| ✓ | graphql-query-factory/factory | Combines Builder & Batcher |
+| ✓ | graphql-query-factory/builder | Builds individual query strings based on the number of variable combinations you have. |
+| ✓ | graphql-query-factory/batcher | Executes the entire array of GraphQL Query Strings. |
 | ✓ | Ava | |
 | ☐ | Flow | Dependencies added but not finished |
 | ✓ | Babel | |
@@ -14,6 +14,8 @@
 | ☐ | Webpack | Babel has been useful for testing. Going to convert to webpack to enable uglification, tree-shaking, etc. |
 
 ----------------------------------------------
+
+### Upcoming Releases
 
 | Tag Name | Description |
 |:---------|:------------|
@@ -31,9 +33,8 @@
 * [x] `lib`: export factory in index
 
 #### Version == 2.0
-* [ ] `docs`: Add table of contents to README and TODO
-* [ ] `docs`: Add output source in README
-* [ ] `docs`: Add CLI screenshot and graphcool screenshot to graphql-query-factory-test
+* [ ] `docs`: Add output source in README towards bottom of file (so doesn't obscure example)
+* [ ] `docs`: Add CLI screenshot and graphcool screenshot to [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
 * [ ] `lib`: Implement webpack (uglification, tree shaking, babel, etc.)
 * [ ] `lib`: Refactor builder to not use classes
 * [ ] `lib`: add stream version of builder for massive, local data streams
