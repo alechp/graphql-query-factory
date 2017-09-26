@@ -6,8 +6,8 @@
 * `batcher` included as of 1.20.0 (executes array of queries)
 * `builder` updated (this builds query strings from query/mutation and variables)
 
-### Action Items (Micro)
-You can see TODOs in [todo.md](./docs/todo.md)
+### Action Items
+You can see TODOs and release plans in [todo.md](./docs/todo.md)
 
 ## Getting Started
 ### Installation
@@ -72,14 +72,13 @@ When using `factory` or `batcher` you must include two environment variables:
 * `GQL_AUTH_TOKEN`
 
 If you don't already have a method for this, you can:
-```
-1. Create .env file in your root directory
-2. npm install dotenv -S
-3. add require('dotenv').config() at entry point (i.e. index/main) of your project
+
+1. Create `.env` file in your root directory
+2. `npm install dotenv -S`
+3. add `require('dotenv').config()` at entry point (i.e. index/main) of your project
 4. define variables like so:
-
-GQL_SIMPLE_ENDPOINT=http://api.endpoint.goes.here/12345
-GQL_AUTH_TOKEN=longobscuretoken
-
-^ note that there's no quotation marks
 ```
+GQL_SIMPLE_ENDPOINT=http://api.endpoint.goes.here/12345
+GQL_AUTH_TOKEN=longobscuretoken1290239809
+```
+^ note that there's no quotation marks

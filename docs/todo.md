@@ -14,7 +14,6 @@
 | ☐ | Webpack | Babel has been useful for testing. Going to convert to webpack to enable uglification, tree-shaking, etc. |
 
 ----------------------------------------------
-## Current
 
 | Tag Name | Description |
 |:---------|:------------|
