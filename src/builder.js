@@ -1,5 +1,4 @@
 //@flow
-
 const chalk = require("chalk"); //https://www.npmjs.com/package/chalk
 const log = console.log;
 
@@ -89,7 +88,7 @@ class QueryBuilder {
     return queries;
   }
 
-  buildQueries() {
+  buildQueries(): Array<string> {
     let q: string = this.getQuery();
     let v: mixed = this.getVariables();
     try {

@@ -12,7 +12,7 @@
 
 #### Version <= 1.0
 * [x] `lib`: make batchQueryExecute loop over original after target array is completed (currently truncates after initial execution)
-* [ ] `lib`: Fix issue with string literals 
+* [ ] `lib`: Fix issue with string literals in built query stirngs
 * [ ] `test-project`: fix constructor error thrown after importing batcher
 * [ ] `lib`: Implement factory shim that wraps builder and batcher
 * [ ] `test-ava`: factory test in factory-queries.js
