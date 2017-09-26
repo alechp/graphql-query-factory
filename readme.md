@@ -18,7 +18,7 @@ npm install graphql-query-factory -S
 ### Examples
 > All of these examples can be seen at [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
 
-All mock variables (e.g. "mock.template", "mock.variables") can be viewed here: [.../tests/_mock.js](https://github.com/alechp/graphql-query-factory/blob/master/src/tests/_mock.js)
+> All mock variables (e.g. "mock.template", "mock.variables") can be viewed here: [.../tests/_mock.js](https://github.com/alechp/graphql-query-factory/blob/master/src/tests/_mock.js)
 
 --------------------------------
 

@@ -29,15 +29,26 @@
 * [x] `test-ava`: factory test in factory-queries.js
 * [x] `test-ava`: builder and batcher combined ava test in factory-queries.js
 * [x] `lib`: export factory in index
-* [ ] `lib`: add stream version of builder for massive, local data streams
-* [ ] `lib`: add async version of builder for remote data streams
 
 #### Version == 2.0
+* [ ] `docs`: Add table of contents to README and TODO
+* [ ] `docs`: Add CLI screenshot and graphcool screenshot to graphql-query-factory-test
 * [ ] `lib`: Implement webpack (uglification, tree shaking, babel, etc.)
+* [ ] `lib`: Refactor builder to not use classes
+* [ ] `lib`: add stream version of builder for massive, local data streams
+* [ ] `lib`: add async version of builder for remote data streams
+* [ ] `lib`: Remove graphql-request dependency in favor of using fetch
 * [ ] `lib`: update version to 2.0
 
 #### Version >= 2.0
 * [ ] `lib`: Flow errors fixed
-* [ ] `lib`: create flow-typed of docs
+* [ ] `lib`: create flow-typed libdef for graphql-query-factory
 * [ ] `docs`: create API docs
 * [ ] `lib`: Add 'isOnline' check before executing queries to ensure that error messages aren't misleading
+* [ ] `docs`: quick video overview
+
+
+-----
+
+Questions:
+1. Is it worth integrating lerna into the project?
