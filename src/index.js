@@ -1,7 +1,10 @@
-const { QueryBuilder, builder } = require("./builder.js");
-// const { QueryBatcher, batcher } = require("./batcher.js");
+const builder = require("./builder.js");
+const batcher = require("./batcher.js");
+const factory = require("./factory.js");
 
-module.exports = {
-  QueryBuilder,
-  builder
-};
+let graphqlQueryFactory = {
+  builder,
+  batcher
+  factory
+}
+module.exports = graphqlQueryFactory;

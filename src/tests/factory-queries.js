@@ -11,6 +11,7 @@ test("queries build and batch independently", async t => {
   let executedQueries: Array<mixed> = await batcher.batch(mock.batchQuery);
   t.pass(JSON.stringify(mock.batchReturn), JSON.stringify(executedQueries));
 });
+
 test("queries build and batch with factory", async t => {
   let executedQueries = await factory(mock.template, mock.variables);
   // log(`executedQueries ${chalk.yellow(JSON.stringify(executedQueries))}`);
