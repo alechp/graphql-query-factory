@@ -34,9 +34,9 @@
 
 #### Version == 1.1.x
 * [x] `docs`: Add output source in README towards bottom of file (so doesn't obscure example)
-* [ ] `docs`: Add summary at top of README (recommended by @aurnik from Graph.cool community)
-* [ ] `docs`: Add link to test project at top of README
-* [ ] `lib`: Fix single-execute query bug
+* [x] `docs`: Add summary at top of README (recommended by @aurnik from Graph.cool community)
+* [x] `docs`: Add link to test project at top of README
+* [x] `lib`: Fix single-execute query bug
 * [ ] `docs`: Create new graph.cool project
   * [ ] Update local graph.cool reference
   * [ ] Add .env file to repo with updated endpoint/token
