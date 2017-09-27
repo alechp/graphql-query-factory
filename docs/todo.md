@@ -40,7 +40,7 @@
 * [ ] `docs`: Create new graph.cool project
   * [ ] Update local graph.cool reference
   * [ ] Add .env file to repo with updated endpoint/token
-* [ ] `docs`: Add CLI screenshot and graphcool screenshot to [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
+* [x] `docs`: Add CLI screenshot and graphcool screenshot to [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
 * [ ] `lib`: Implement webpack (uglification, tree shaking, babel, etc.)
 * [ ] `lib`: Refactor builder to not use classes
 * [ ] `lib`: add stream version of builder for massive, local data streams
