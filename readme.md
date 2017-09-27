@@ -1,6 +1,20 @@
 # GraphQL Query Batcher
 ![CI Build Status Bar](https://travis-ci.org/alechp/graphql-query-factory.svg?branch=flow)
 
+Note: "Query" is used broadly to mean both `query` and `mutation`
+
+### Overview
+
+* build GraphQL queries
+* batch execute those queries
+
+Need quick batching? `factory` function is the answer
+Need to split the query build and query batching process? Checkout `builder` and `batcher`
+
+----------------
+
+> Sample project: [graphql-query-factory-test](https://github.com/alechp/graphql-query-factory-test)
+
 ## Status
 * `factory` included as of 1.0.20 (shim around builder and batcher)
 * `batcher` included as of 1.0.20 (executes array of queries)
@@ -60,9 +74,11 @@ factory(mock.template, mock.variables)
 const { batcher } = require('graphql-query-factory');
 
 batcher
-  .request(mock.singleQuery)
-  .then(data => log(`batcher.request(mock.singleQuery): ${(data, null, 4)}`))
-  .catch(err => log(`batcher.request(mock.singleQuery): ${err}`));
+  .batch(mock.batchQuery)
+  .then(data =>
+    log(`batcher.batch(mock.batchQuery): ${JSON.stringify(data, null, 4)}`)
+  )
+  .catch(err => log(`batcher.batch(mock.batchQuery): ${err}`));
 ```
 --------------------------------
 
@@ -73,7 +89,7 @@ batcher
 ![graphcool](./docs/graphcool_data_saved.png)
 
 #### builder
-```
+```json
 mutation {
   createContent(
     markup: "markupA"
