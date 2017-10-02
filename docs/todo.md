@@ -47,6 +47,7 @@
 * [ ] `lib`: add async version of builder for remote data streams
 * [ ] `lib`: Remove graphql-request dependency in favor of using fetch
 * [ ] `lib`: update version to 2.0
+* [ ] `test`: Create [Code Sandbox](https://codesandbox.io/s/new) example that allows users to customize API endpoint, API auth, query string and array variables.
 
 #### Version == 1.2.x
 * [ ] `lib`: Flow errors fixed
